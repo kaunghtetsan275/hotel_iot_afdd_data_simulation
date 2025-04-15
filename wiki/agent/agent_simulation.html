@@ -1,0 +1,1423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>agent.agent_simulation API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>agent.agent_simulation</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="agent.agent_simulation.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    &#34;&#34;&#34;
+    Entry point for the simulation script.
+
+    This function initializes an instance of the IAQSensorSimulator class
+    and runs the simulation asynchronously using asyncio.
+    &#34;&#34;&#34;
+    simulator = IAQSensorSimulator()
+    asyncio.run(simulator.run_simulation())</code></pre>
+</details>
+<div class="desc"><p>Entry point for the simulation script.</p>
+<p>This function initializes an instance of the IAQSensorSimulator class
+and runs the simulation asynchronously using asyncio.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="agent.agent_simulation.IAQSensorSimulator"><code class="flex name class">
+<span>class <span class="ident">IAQSensorSimulator</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class IAQSensorSimulator:
+    &#34;&#34;&#34;
+    Attributes:
+        RABBITMQ_URL (str): The RabbitMQ connection URL.
+        RABBITMQ_HOST (str): The RabbitMQ host address.
+        EXCHANGE_NAME (str): The name of the RabbitMQ exchange.
+        interval_seconds (int): The interval in seconds between data generation cycles.
+        interval_total_seconds (int): The total elapsed time in seconds for the simulation.
+        connection (aio_pika.Connection): The RabbitMQ connection object.
+        channel (aio_pika.Channel): The RabbitMQ channel object.
+        exchange (aio_pika.Exchange): The RabbitMQ exchange object.
+        supabase (supabase.Client): The Supabase client for interacting with the database.
+    Methods:
+        __init__():
+            Initializes the IAQSensorSimulator with RabbitMQ and Supabase configurations.
+        init_rabbitmq():
+            Asynchronously initializes the RabbitMQ connection, channel, and exchange.
+        close_rabbitmq():
+            Asynchronously closes the RabbitMQ connection and channel.
+        get_devices_from_supabase():
+            Fetches the list of devices from the Supabase database.
+        generate_iaq_data(device_id):
+            Generates basic IAQ data (temperature, humidity, CO2) for a given device.
+        generate_iaq_data_advanced(device_id, did, sensor_type, ...):
+            Generates advanced IAQ data with sinusoidal patterns, noise, and spikes.
+        generate_occupancy_data_advanced(device_id, did, sensor_type):
+            Generates advanced occupancy data, including online status, sensitivity, and occupancy status.
+        generate_power_data_advanced(device_id, did, sensor_type):
+            Generates advanced power consumption data with base levels, noise, and spikes.
+        generate_iot_data(device_id, did, sensor_type):
+            Generates IoT data for a specific sensor type (e.g., temperature, humidity, power meter).
+        publish_to_rabbitmq(data_list):
+            Publishes a list of sensor data to RabbitMQ with appropriate routing keys.
+        publish_batch(json_list):
+            Asynchronously publishes a batch of sensor data to RabbitMQ.
+        publish_to_supabase(data_list):
+            Publishes a list of sensor data to the Supabase database.
+        run_simulation():
+            Runs the IAQ sensor simulation, generating and publishing data at regular intervals.
+    &#34;&#34;&#34;
+    def __init__(self):
+        &#34;&#34;&#34;
+        Initializes the simulation agent with RabbitMQ and Supabase configurations.
+        &#34;&#34;&#34;
+        # RabbitMQ connection parameters
+        self.RABBITMQ_URL = &#39;amqp://guest:guest@localhost:5672/&#39; if config(&#39;ENVIRONMENT&#39;, default=&#39;local&#39;) == &#39;local&#39; else config(&#39;RABBITMQ_URL&#39;)
+        self.RABBITMQ_HOST = &#39;localhost&#39; if config(&#39;ENVIRONMENT&#39;, default=&#39;local&#39;) == &#39;local&#39; else config(&#39;RABBITMQ_HOST&#39;)
+        self.EXCHANGE_NAME = config(&#39;EXCHANGE_NAME&#39;, default=&#39;hotel_iot&#39;)
+        self.interval_seconds = 5
+        self.interval_total_seconds = self.interval_seconds
+
+        # RabbitMQ setup
+        self.connection = None
+        self.channel = None
+        self.exchange = None
+
+        # Supabase setup
+        # Initialize Supabase client
+        SUPABASE_URL = config(&#39;SUPABASE_URL&#39;)
+        SUPABASE_API_KEY = config(&#39;SUPABASE_API_KEY&#39;)
+        self.supabase = create_client(SUPABASE_URL, SUPABASE_API_KEY)
+
+    async def init_rabbitmq(self) -&gt; None:
+        &#34;&#34;&#34;
+        Initialize a connection to RabbitMQ using a robust connection and set up
+        a communication channel with a durable topic exchange.
+
+        This method establishes a robust connection to the RabbitMQ server using
+        the provided RabbitMQ URL, creates a communication channel, and declares
+        a durable topic exchange with the specified exchange name.
+        &#34;&#34;&#34;
+        self.connection = await connect_robust(self.RABBITMQ_URL)
+        self.channel = await self.connection.channel()
+        self.exchange = await self.channel.declare_exchange(
+                            name=self.EXCHANGE_NAME,
+                            type=&#39;topic&#39;,
+                            durable=True
+                        )
+
+    async def close_rabbitmq(self) -&gt; None:
+        &#34;&#34;&#34;
+        Asynchronously closes the RabbitMQ channel and connection.
+
+        This method ensures that both the channel and connection to RabbitMQ
+        are properly closed if they exist. It first closes the channel, followed
+        by the connection, to release resources and clean up.
+
+        Raises:
+            Any exceptions raised during the closing of the channel or connection.
+        &#34;&#34;&#34;
+        if self.channel:
+            await self.channel.close()
+        if self.connection:
+            await self.connection.close()
+
+    def get_devices_from_supabase(self) -&gt; list:
+        &#34;&#34;&#34;
+        Fetches a list of devices from the Supabase database.
+
+        This method queries the &#39;devices&#39; table in the Supabase database and retrieves
+        all records. If devices are found, they are returned as a list. If no devices
+        are found, an empty list is returned, and a message is printed to indicate this.
+
+        Returns:
+            list: A list of device records if found, otherwise an empty list.
+        &#34;&#34;&#34;
+        # Fetch devices from Supabase
+        devices = self.supabase.table(&#39;devices&#39;).select(&#39;*&#39;).execute()
+        if devices.data:
+            return devices.data
+        else:
+            logging.info(&#34;No devices found in Supabase.&#34;)
+            return []
+
+    def generate_iaq_data_advanced(self, device_id, did, sensor_type,
+                                   start_time_str=&#34;2024-12-27 00:00:00&#34;,
+                                   temperature_base=27,
+                                   temperature_amplitude=0.5,
+                                   humidity_base=50,
+                                   humidity_amplitude=0.5,
+                                   co2_base=500,
+                                   co2_spike_chance=0.01,
+                                   co2_spike_magnitude_range=(300, 800),
+                                   temperature_noise_std=0.05,
+                                   humidity_noise_std=1.5,
+                                   co2_noise_std=20) -&gt; tuple:
+        &#34;&#34;&#34;
+        Generate advanced Indoor Air Quality (IAQ) data including temperature, humidity, and CO2 levels.
+        This method simulates IAQ data using sinusoidal patterns, diurnal adjustments, random noise, 
+        and occasional CO2 spikes to mimic real-world environmental variations.
+        Args:
+            device_id (str): The unique identifier for the device generating the data.
+            did (str): Device ID or additional identifier for the data source.
+            sensor_type (str): The type of sensor generating the data.
+            start_time_str (str, optional): The starting timestamp for the simulation in the format 
+                &#34;YYYY-MM-DD HH:MM:SS&#34;. Defaults to &#34;2024-12-27 00:00:00&#34;.
+            temperature_base (float, optional): The base temperature value in degrees Celsius. Defaults to 27.
+            temperature_amplitude (float, optional): The amplitude of the sinusoidal temperature variation. Defaults to 0.5.
+            humidity_base (float, optional): The base humidity value in percentage. Defaults to 50.
+            humidity_amplitude (float, optional): The amplitude of the sinusoidal humidity variation. Defaults to 0.5.
+            co2_base (int, optional): The base CO2 level in ppm. Defaults to 500.
+            co2_spike_chance (float, optional): The probability of a CO2 spike occurring at each time step. Defaults to 0.01.
+            co2_spike_magnitude_range (tuple, optional): The range of CO2 spike magnitudes in ppm. Defaults to (300, 800).
+            temperature_noise_std (float, optional): The standard deviation of random noise added to temperature. Defaults to 0.05.
+            humidity_noise_std (float, optional): The standard deviation of random noise added to humidity. Defaults to 1.5.
+            co2_noise_std (float, optional): The standard deviation of random noise added to CO2 levels. Defaults to 20.
+        Returns:
+            tuple: A tuple containing:
+                - temperature (float): The simulated temperature value in degrees Celsius.
+                - humidity (float): The simulated humidity value in percentage.
+                - co2 (float): The simulated CO2 level in ppm.
+        &#34;&#34;&#34;
+        start_time = datetime.strptime(start_time_str, &#34;%Y-%m-%d %H:%M:%S&#34;)
+        current_time = start_time + self.interval_total_seconds * timedelta(seconds=1)
+        t_sec = current_time.second
+        co2_spike_value = 0
+        co2_spike_decay = 0
+
+        # Temperature: base + sinusoidal pattern with a 24-hour cycle + noise
+        temperature = temperature_base + temperature_amplitude * math.sin(2 * math.pi * t_sec / 86400 - math.pi / 2)
+        hour_of_day = current_time.hour + current_time.minute / 60
+        diurnal_adjustment = -5 * math.cos(2 * math.pi * hour_of_day / 24)
+        temperature += diurnal_adjustment
+        temperature += random.gauss(0, temperature_noise_std)
+
+        # Humidity inverse of temperature with sinusoidal pattern + noise
+        humidity = humidity_base - humidity_amplitude * math.sin(2 * math.pi * t_sec / 86400 - math.pi / 2)
+        humidity += random.gauss(0, humidity_noise_std)
+        humidity = max(30, min(70, humidity))
+
+        # CO2 base level and spikes
+        co2_base = max(400, min(1200, co2_base))
+        if co2_spike_value &gt; 0:
+            co2_spike_value *= co2_spike_decay
+        elif random.random() &lt; co2_spike_chance:
+            co2_spike_value = random.randint(*co2_spike_magnitude_range)
+            co2_spike_decay = random.uniform(0.95, 0.99)
+        co2 = co2_base + co2_spike_value + random.gauss(0, co2_noise_std)
+
+        return temperature, humidity, co2
+
+    def generate_occupancy_data_advanced(self, device_id, did, sensor_type) -&gt; tuple:
+        &#34;&#34;&#34;
+        Generates advanced occupancy data for a given device.
+        This method simulates the occupancy status, online status, and sensitivity 
+        of a device based on the current time and random chance. It also introduces 
+        a small probability of anomalies in the generated data.
+        Args:
+            device_id (str): The unique identifier of the device.
+            did (str): The device ID used for internal processing.
+            sensor_type (str): The type of sensor associated with the device.
+        Returns:
+            tuple: A tuple containing:
+                - online_status (str): The online status of the device, either &#39;online&#39; or &#39;offline&#39;.
+                - sensitivity (str): The sensitivity level of the device, represented as a percentage 
+                    (&#39;0%&#39;, &#39;25%&#39;, &#39;50%&#39;, &#39;75%&#39;, or &#39;100%&#39;).
+                - occupancy_status (str): The occupancy status of the device, either &#39;occupied&#39; or &#39;unoccupied&#39;.
+        &#34;&#34;&#34;
+        current_time = datetime.strptime(&#34;2024-12-27 00:00:00&#34;, &#34;%Y-%m-%d %H:%M:%S&#34;)
+        current_time = current_time + self.interval_total_seconds * timedelta(seconds=1)
+        if 0 &lt;= current_time.hour &lt; 6 or 12 &lt;= current_time.hour &lt; 18:
+            occupancy_status = &#39;unoccupied&#39;
+            occupancy_chance = random.random()
+            if occupancy_chance &lt; 0.02:
+                occupancy_status = &#39;occupied&#39;
+        else:
+            occupancy_status = &#39;occupied&#39;
+
+        online_chance = random.random()
+        if online_chance &lt; 0.02:
+            online_status = &#39;offline&#39;
+        else:
+            online_status = &#39;online&#39;
+
+        if online_status == &#39;offline&#39;:
+            sensitivity = &#39;0%&#39;
+        elif random.random() &gt; 0.02:
+            sensitivity = &#39;100%&#39;
+        else:
+            sensitivity = random.choice([&#39;0%&#39;, &#39;25%&#39;, &#39;50%&#39;, &#39;75%&#39;])
+        
+        return online_status, sensitivity, occupancy_status
+
+    def generate_power_data_advanced(self, device_id, did, sensor_type) -&gt; float:
+        &#34;&#34;&#34;
+        Generates simulated power consumption data for a device with advanced features 
+        such as random noise, base power, and occasional power spikes.
+        Args:
+            device_id (str): The unique identifier for the device.
+            did (str): Additional identifier for the device (not used in the current implementation).
+            sensor_type (str): The type of sensor associated with the device (not used in the current implementation).
+        Returns:
+            float: Simulated power consumption value in kilowatts (kW).
+        Notes:
+            - The base power consumption is randomly generated within a range of 0.1 to 2.5 kW.
+            - Power spikes occur with a 10% probability and have a magnitude between 3 and 10 kW.
+            - Power spikes decay over time with a random decay factor between 0.95 and 0.99.
+            - Random Gaussian noise with a standard deviation of 0.1 kW is added to the final power value.
+        &#34;&#34;&#34;
+        power_spike_magnitude_range = (3, 10)  # kW
+        power_base = random.uniform(0.1, 2.5)  # kW
+        power_noise_std = 0.1  # kW
+        power_spike_chance = random.random()
+        power_spike_decay = random.uniform(0.95, 0.99)
+        power_spike_value = 0
+
+        if power_spike_value &gt; 0:
+            power_spike_value *= power_spike_decay
+        elif power_spike_chance &lt; 0.1:  # 10% chance of a spike
+            power_spike_value = random.randint(*power_spike_magnitude_range)
+            power_spike_decay = random.uniform(0.95, 0.99)
+
+        power_meter = power_base + power_spike_value + random.gauss(0, power_noise_std)
+        return power_meter
+
+    def generate_iot_data(self, device_id, did, sensor_type) -&gt; dict:
+        &#34;&#34;&#34;
+        Generates IoT data for a given device based on the specified sensor type.
+        Args:
+            device_id (str): The unique identifier of the IoT device.
+            did (str): The unique identifier for the data entry.
+            sensor_type (str): The type of sensor data to generate. 
+                Supported values are:
+                - &#39;power_meter&#39;: Generates power meter data.
+                - &#39;temperature&#39;: Generates temperature data.
+                - &#39;humidity&#39;: Generates humidity data.
+                - &#39;co2&#39;: Generates CO2 data.
+                - &#39;online_status&#39;: Generates online status data.
+                - &#39;occupancy_status&#39;: Generates occupancy status data.
+                - &#39;sensitivity&#39;: Generates sensitivity data.
+        Returns:
+            dict: A dictionary containing the generated IoT data with the following keys:
+                - &#34;datetime&#34; (str): The ISO 8601 formatted timestamp of the data.
+                - &#34;id&#34; (str): The unique identifier for the data entry.
+                - &#34;device_id&#34; (str): The unique identifier of the IoT device.
+                - &#34;&lt;sensor_type&gt;&#34; (varies): The generated value for the specified sensor type.
+                - &#34;sensor_type&#34; (str): The type of sensor data generated.
+        Notes:
+            - The method uses helper functions to generate specific types of data:
+              `generate_iaq_data_advanced`, `generate_occupancy_data_advanced`, and 
+              `generate_power_data_advanced`.
+            - The `locals()` function is used to dynamically access the generated 
+              sensor data based on the `sensor_type`.
+        &#34;&#34;&#34;
+        current_time = datetime.strptime(&#34;2024-12-27 00:00:00&#34;, &#34;%Y-%m-%d %H:%M:%S&#34;)
+        current_time = current_time + self.interval_total_seconds * timedelta(seconds=1)
+
+        # NOTE: These variables are used in locals() to access the generated data
+        temperature, humidity, co2 = self.generate_iaq_data_advanced(device_id, did, sensor_type)
+        online_status, sensitivity, occupancy_status = self.generate_occupancy_data_advanced(device_id, did, sensor_type)
+        power_meter = self.generate_power_data_advanced(device_id, did, sensor_type)
+        if sensor_type == &#39;power_meter&#39;:
+            return {
+                &#34;datetime&#34;: current_time.isoformat(),
+                &#39;id&#39;: did,
+                &#34;device_id&#34;: device_id,
+                &#34;power_meter&#34;: round(power_meter, 2),
+                &#34;sensor_type&#34;: sensor_type
+            }
+        elif sensor_type in [&#39;temperature&#39;, &#39;humidity&#39;, &#39;co2&#39;]:
+            return {
+                &#34;datetime&#34;: current_time.isoformat(),
+                &#34;id&#34;: did,
+                &#34;device_id&#34;: device_id,
+                sensor_type: round(locals()[sensor_type], 2),
+                &#34;sensor_type&#34;: sensor_type
+            }
+        elif sensor_type in [&#39;online_status&#39;, &#39;occupancy_status&#39;, &#39;sensitivity&#39;]:
+            return {
+                &#34;datetime&#34;: current_time.isoformat(),
+                &#34;id&#34;: did,
+                &#34;device_id&#34;: device_id,
+                sensor_type: locals()[sensor_type],
+                &#34;sensor_type&#34;: sensor_type
+            }
+
+    def publish_to_rabbitmq(self, data_list) -&gt; None:
+        &#34;&#34;&#34;
+        Publishes a list of data to RabbitMQ with dynamically generated routing keys.
+        This method processes a list of data dictionaries, determines the appropriate
+        routing key for each data item based on its `sensor_type` and `device_id`, and
+        publishes the data to a RabbitMQ exchange.
+        Args:
+            data_list (list): A list of dictionaries, where each dictionary represents
+                a data item to be published. Each dictionary must contain the following keys:
+                - &#39;device_id&#39; (str): The unique identifier of the device, formatted as a
+                  string with parts separated by hyphens.
+                - &#39;sensor_type&#39; (str): The type of sensor (e.g., &#39;temperature&#39;, &#39;humidity&#39;,
+                  &#39;power_meter_...&#39;, etc.).
+        Routing Key Generation:
+            - For sensor types starting with &#39;power_meter_&#39;, the routing key suffix is &#34;POW&#34;.
+            - For other sensor types, the suffix is determined by the `routing_key_map`.
+            - If the sensor type is not found in the `routing_key_map`, the suffix defaults
+              to &#34;UNKNOWN&#34;.
+            - The final routing key is constructed by combining the first three parts of
+              the `device_id` with the suffix, separated by hyphens.
+        RabbitMQ Operations:
+            - Declares a queue with the generated routing key.
+            - Binds the queue to the specified exchange using the routing key.
+            - Publishes the data to the exchange with the routing key.
+        Raises:
+            KeyError: If a required key (&#39;device_id&#39; or &#39;sensor_type&#39;) is missing from a
+                data dictionary in the `data_list`.
+            Exception: If there is an issue with RabbitMQ operations (e.g., queue declaration,
+                binding, or publishing).
+        Note:
+            This method assumes that `self.channel` is a valid RabbitMQ channel and
+            `self.EXCHANGE_NAME` is the name of the RabbitMQ exchange to publish to.
+        &#34;&#34;&#34;
+        routing_key_map = {
+            &#39;temperature&#39;: &#39;IAQ&#39;,
+            &#39;humidity&#39;: &#39;IAQ&#39;,
+            &#39;co2&#39;: &#39;IAQ&#39;,
+            &#39;online_status&#39;: &#39;OCC&#39;,
+            &#39;occupancy_status&#39;: &#39;OCC&#39;,
+            &#39;sensitivity&#39;: &#39;OCC&#39;
+        }
+
+        for data in data_list:
+            device_id_parts = data[&#39;device_id&#39;].split(&#39;-&#39;)
+            sensor_type = data[&#39;sensor_type&#39;]
+            if sensor_type.startswith(&#39;power_meter_&#39;):
+                routing_key_suffix = &#34;POW&#34;
+            else:
+                routing_key_suffix = routing_key_map.get(sensor_type, &#34;UNKNOWN&#34;)
+            routing_key = &#39;-&#39;.join(device_id_parts[:3]) + f&#34;-{routing_key_suffix}&#34;
+            self.channel.queue_declare(queue=routing_key)
+            self.channel.queue_bind(exchange=self.EXCHANGE_NAME, queue=routing_key, routing_key=routing_key)
+            self.channel.basic_publish(exchange=self.EXCHANGE_NAME, routing_key=routing_key, body=json.dumps(data))
+
+    async def publish_batch(self, json_list) -&gt; None:
+        &#34;&#34;&#34;
+        Publishes a batch of JSON messages to RabbitMQ queues based on sensor types.
+        This asynchronous method connects to a RabbitMQ server, declares queues dynamically
+        based on the `sensor_type` field in each message, binds the queues to an exchange,
+        and publishes the messages to the appropriate queues.
+        Args:
+            json_list (list): A list of dictionaries, where each dictionary represents a 
+                              JSON message containing a `sensor_type` key and other data.
+        Raises:
+            Exception: If there is an issue with connecting to RabbitMQ, declaring queues,
+                       or publishing messages.
+        Notes:
+            - The RabbitMQ connection URL is retrieved from the `RABBITMQ_URL` environment variable.
+            - The queues are declared as durable, ensuring they persist even if RabbitMQ restarts.
+            - The messages are published with a delivery mode of 2, making them persistent.
+            - The method uses asyncio to handle multiple tasks concurrently.
+        &#34;&#34;&#34;
+        connection = await connect_robust(config(&#39;RABBITMQ_URL&#39;))
+        channel = await connection.channel()
+        tasks = []
+        for msg in json_list:
+            sensor_type = msg[&#39;sensor_type&#39;]
+            queue_name = f&#34;{sensor_type}_queue&#34;
+            await channel.declare_queue(queue_name, durable=True)
+            queue = await channel.declare_queue(queue_name, durable=True)
+            await queue.bind(self.EXCHANGE_NAME, routing_key=queue_name)
+            tasks.append(
+                self.exchange.publish(
+                    Message(body=json.dumps(msg).encode(), delivery_mode=2),
+                    routing_key=queue_name
+                )
+            )
+
+        await asyncio.gather(*tasks)
+        await connection.close()
+
+    def publish_to_supabase(self, data_list) -&gt; None:
+        &#34;&#34;&#34;
+        Publishes a list of sensor data to a Supabase table.
+
+        This method transforms the input data into the required format and uploads it
+        to the &#39;sensor_data_latest&#39; table in Supabase. The transformation includes
+        mapping the input data to a dictionary with specific keys and converting the
+        timestamp to a Unix timestamp.
+
+        Args:
+            data_list (list): A list of dictionaries, where each dictionary contains
+                the following keys:
+                - &#39;device_id&#39; (str): The unique identifier of the device.
+                - &#39;sensor_type&#39; (str): The type of sensor (e.g., temperature, humidity).
+                - &#39;datetime&#39; (str): The ISO 8601 formatted datetime string.
+                - &#39;id&#39; (int): The unique identifier for the data point.
+                - A key matching the value of &#39;sensor_type&#39; (e.g., &#39;temperature&#39;): The
+                  sensor reading value.
+
+        Raises:
+            ValueError: If the &#39;datetime&#39; field in the input data cannot be parsed
+                into a valid datetime object.
+
+        Notes:
+            - The &#39;timestamp&#39; field is derived from the &#39;datetime&#39; field and is stored
+              as a Unix timestamp.
+            - The &#39;did&#39; field is derived from the &#39;id&#39; field and is stored as an integer.
+            - The &#39;upsert&#39; operation ensures that existing records with the same
+              &#39;device_id&#39; and &#39;datapoint&#39; are updated, while new records are inserted.
+        &#34;&#34;&#34;
+        # transform data_list to a list of dictionaries with the required keys to match the Supabase table
+        data_list = list(map(lambda x: {
+            &#39;device_id&#39;: x[&#39;device_id&#39;],
+            &#39;datapoint&#39;: x[&#39;sensor_type&#39;],
+            &#39;value&#39;: x[x[&#39;sensor_type&#39;]],
+            &#39;timestamp&#39;: int(datetime.fromisoformat(x[&#39;datetime&#39;]).timestamp()),
+            &#39;datetime&#39;: x[&#39;datetime&#39;],
+            &#39;did&#39;: int(x[&#39;id&#39;])}, data_list))
+        self.supabase.table(&#39;sensor_data_latest&#39;).upsert(data_list, on_conflict=&#39;device_id, datapoint&#39;).execute()
+
+    async def run_simulation(self) -&gt; None:
+        &#34;&#34;&#34;
+        Runs the IAQ (Indoor Air Quality) Sensor Simulator.
+        This asynchronous method initializes RabbitMQ, retrieves devices from Supabase, 
+        generates IoT data for each device, and publishes the data to both Supabase 
+        and RabbitMQ in batches. The simulation runs for a specified number of entries 
+        or until interrupted.
+        &#34;&#34;&#34;
+        logging.basicConfig(level=logging.INFO, format=&#39;%(asctime)s - %(levelname)s - %(message)s&#39;)
+        logging.info(&#34;🤖 IAQ Sensor Simulator started.&#34;)
+        logging.info(&#34;🤖 RabbitMQ dashboard available at: http://localhost:15672&#34;)
+        get_devices = self.get_devices_from_supabase()
+        await self.init_rabbitmq()
+
+        try:
+            max_entries = config(&#39;MAX_ENTRIES&#39;, default=1000, cast=int)
+            for _ in range(max_entries):
+                iaq_data_list = list(map(
+                    lambda d: self.generate_iot_data(d[&#39;device_identifier&#39;], d[&#39;id&#39;], d[&#39;sensor_type&#39;]),
+                    get_devices
+                ))
+                iaq_data_list = list(filter(None, iaq_data_list))
+                self.publish_to_supabase(iaq_data_list)
+                await self.publish_batch(iaq_data_list)
+
+                self.interval_total_seconds += self.interval_seconds
+                await asyncio.sleep(self.interval_seconds)
+
+        except KeyboardInterrupt:
+            logging.info(&#34;IAQ Sensor Simulator stopped.&#34;)
+        except Exception as e:
+            logging.error(f&#34;Simulation error: {e}&#34;)
+        finally:
+            await self.close_rabbitmq()
+            logging.info(&#34;Cleanup done. Bye!&#34;)</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>RABBITMQ_URL</code></strong> :&ensp;<code>str</code></dt>
+<dd>The RabbitMQ connection URL.</dd>
+<dt><strong><code>RABBITMQ_HOST</code></strong> :&ensp;<code>str</code></dt>
+<dd>The RabbitMQ host address.</dd>
+<dt><strong><code>EXCHANGE_NAME</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the RabbitMQ exchange.</dd>
+<dt><strong><code>interval_seconds</code></strong> :&ensp;<code>int</code></dt>
+<dd>The interval in seconds between data generation cycles.</dd>
+<dt><strong><code>interval_total_seconds</code></strong> :&ensp;<code>int</code></dt>
+<dd>The total elapsed time in seconds for the simulation.</dd>
+<dt><strong><code>connection</code></strong> :&ensp;<code>aio_pika.Connection</code></dt>
+<dd>The RabbitMQ connection object.</dd>
+<dt><strong><code>channel</code></strong> :&ensp;<code>aio_pika.Channel</code></dt>
+<dd>The RabbitMQ channel object.</dd>
+<dt><strong><code>exchange</code></strong> :&ensp;<code>aio_pika.Exchange</code></dt>
+<dd>The RabbitMQ exchange object.</dd>
+<dt><strong><code>supabase</code></strong> :&ensp;<code>supabase.Client</code></dt>
+<dd>The Supabase client for interacting with the database.</dd>
+</dl>
+<h2 id="methods">Methods</h2>
+<p><strong>init</strong>():
+Initializes the IAQSensorSimulator with RabbitMQ and Supabase configurations.
+init_rabbitmq():
+Asynchronously initializes the RabbitMQ connection, channel, and exchange.
+close_rabbitmq():
+Asynchronously closes the RabbitMQ connection and channel.
+get_devices_from_supabase():
+Fetches the list of devices from the Supabase database.
+generate_iaq_data(device_id):
+Generates basic IAQ data (temperature, humidity, CO2) for a given device.
+generate_iaq_data_advanced(device_id, did, sensor_type, &hellip;):
+Generates advanced IAQ data with sinusoidal patterns, noise, and spikes.
+generate_occupancy_data_advanced(device_id, did, sensor_type):
+Generates advanced occupancy data, including online status, sensitivity, and occupancy status.
+generate_power_data_advanced(device_id, did, sensor_type):
+Generates advanced power consumption data with base levels, noise, and spikes.
+generate_iot_data(device_id, did, sensor_type):
+Generates IoT data for a specific sensor type (e.g., temperature, humidity, power meter).
+publish_to_rabbitmq(data_list):
+Publishes a list of sensor data to RabbitMQ with appropriate routing keys.
+publish_batch(json_list):
+Asynchronously publishes a batch of sensor data to RabbitMQ.
+publish_to_supabase(data_list):
+Publishes a list of sensor data to the Supabase database.
+run_simulation():
+Runs the IAQ sensor simulation, generating and publishing data at regular intervals.</p>
+<p>Initializes the simulation agent with RabbitMQ and Supabase configurations.</p></div>
+<h3>Methods</h3>
+<dl>
+<dt id="agent.agent_simulation.IAQSensorSimulator.close_rabbitmq"><code class="name flex">
+<span>async def <span class="ident">close_rabbitmq</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def close_rabbitmq(self) -&gt; None:
+    &#34;&#34;&#34;
+    Asynchronously closes the RabbitMQ channel and connection.
+
+    This method ensures that both the channel and connection to RabbitMQ
+    are properly closed if they exist. It first closes the channel, followed
+    by the connection, to release resources and clean up.
+
+    Raises:
+        Any exceptions raised during the closing of the channel or connection.
+    &#34;&#34;&#34;
+    if self.channel:
+        await self.channel.close()
+    if self.connection:
+        await self.connection.close()</code></pre>
+</details>
+<div class="desc"><p>Asynchronously closes the RabbitMQ channel and connection.</p>
+<p>This method ensures that both the channel and connection to RabbitMQ
+are properly closed if they exist. It first closes the channel, followed
+by the connection, to release resources and clean up.</p>
+<h2 id="raises">Raises</h2>
+<p>Any exceptions raised during the closing of the channel or connection.</p></div>
+</dd>
+<dt id="agent.agent_simulation.IAQSensorSimulator.generate_iaq_data_advanced"><code class="name flex">
+<span>def <span class="ident">generate_iaq_data_advanced</span></span>(<span>self,<br>device_id,<br>did,<br>sensor_type,<br>start_time_str='2024-12-27 00:00:00',<br>temperature_base=27,<br>temperature_amplitude=0.5,<br>humidity_base=50,<br>humidity_amplitude=0.5,<br>co2_base=500,<br>co2_spike_chance=0.01,<br>co2_spike_magnitude_range=(300, 800),<br>temperature_noise_std=0.05,<br>humidity_noise_std=1.5,<br>co2_noise_std=20) ‑> tuple</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_iaq_data_advanced(self, device_id, did, sensor_type,
+                               start_time_str=&#34;2024-12-27 00:00:00&#34;,
+                               temperature_base=27,
+                               temperature_amplitude=0.5,
+                               humidity_base=50,
+                               humidity_amplitude=0.5,
+                               co2_base=500,
+                               co2_spike_chance=0.01,
+                               co2_spike_magnitude_range=(300, 800),
+                               temperature_noise_std=0.05,
+                               humidity_noise_std=1.5,
+                               co2_noise_std=20) -&gt; tuple:
+    &#34;&#34;&#34;
+    Generate advanced Indoor Air Quality (IAQ) data including temperature, humidity, and CO2 levels.
+    This method simulates IAQ data using sinusoidal patterns, diurnal adjustments, random noise, 
+    and occasional CO2 spikes to mimic real-world environmental variations.
+    Args:
+        device_id (str): The unique identifier for the device generating the data.
+        did (str): Device ID or additional identifier for the data source.
+        sensor_type (str): The type of sensor generating the data.
+        start_time_str (str, optional): The starting timestamp for the simulation in the format 
+            &#34;YYYY-MM-DD HH:MM:SS&#34;. Defaults to &#34;2024-12-27 00:00:00&#34;.
+        temperature_base (float, optional): The base temperature value in degrees Celsius. Defaults to 27.
+        temperature_amplitude (float, optional): The amplitude of the sinusoidal temperature variation. Defaults to 0.5.
+        humidity_base (float, optional): The base humidity value in percentage. Defaults to 50.
+        humidity_amplitude (float, optional): The amplitude of the sinusoidal humidity variation. Defaults to 0.5.
+        co2_base (int, optional): The base CO2 level in ppm. Defaults to 500.
+        co2_spike_chance (float, optional): The probability of a CO2 spike occurring at each time step. Defaults to 0.01.
+        co2_spike_magnitude_range (tuple, optional): The range of CO2 spike magnitudes in ppm. Defaults to (300, 800).
+        temperature_noise_std (float, optional): The standard deviation of random noise added to temperature. Defaults to 0.05.
+        humidity_noise_std (float, optional): The standard deviation of random noise added to humidity. Defaults to 1.5.
+        co2_noise_std (float, optional): The standard deviation of random noise added to CO2 levels. Defaults to 20.
+    Returns:
+        tuple: A tuple containing:
+            - temperature (float): The simulated temperature value in degrees Celsius.
+            - humidity (float): The simulated humidity value in percentage.
+            - co2 (float): The simulated CO2 level in ppm.
+    &#34;&#34;&#34;
+    start_time = datetime.strptime(start_time_str, &#34;%Y-%m-%d %H:%M:%S&#34;)
+    current_time = start_time + self.interval_total_seconds * timedelta(seconds=1)
+    t_sec = current_time.second
+    co2_spike_value = 0
+    co2_spike_decay = 0
+
+    # Temperature: base + sinusoidal pattern with a 24-hour cycle + noise
+    temperature = temperature_base + temperature_amplitude * math.sin(2 * math.pi * t_sec / 86400 - math.pi / 2)
+    hour_of_day = current_time.hour + current_time.minute / 60
+    diurnal_adjustment = -5 * math.cos(2 * math.pi * hour_of_day / 24)
+    temperature += diurnal_adjustment
+    temperature += random.gauss(0, temperature_noise_std)
+
+    # Humidity inverse of temperature with sinusoidal pattern + noise
+    humidity = humidity_base - humidity_amplitude * math.sin(2 * math.pi * t_sec / 86400 - math.pi / 2)
+    humidity += random.gauss(0, humidity_noise_std)
+    humidity = max(30, min(70, humidity))
+
+    # CO2 base level and spikes
+    co2_base = max(400, min(1200, co2_base))
+    if co2_spike_value &gt; 0:
+        co2_spike_value *= co2_spike_decay
+    elif random.random() &lt; co2_spike_chance:
+        co2_spike_value = random.randint(*co2_spike_magnitude_range)
+        co2_spike_decay = random.uniform(0.95, 0.99)
+    co2 = co2_base + co2_spike_value + random.gauss(0, co2_noise_std)
+
+    return temperature, humidity, co2</code></pre>
+</details>
+<div class="desc"><p>Generate advanced Indoor Air Quality (IAQ) data including temperature, humidity, and CO2 levels.
+This method simulates IAQ data using sinusoidal patterns, diurnal adjustments, random noise,
+and occasional CO2 spikes to mimic real-world environmental variations.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>device_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>The unique identifier for the device generating the data.</dd>
+<dt><strong><code>did</code></strong> :&ensp;<code>str</code></dt>
+<dd>Device ID or additional identifier for the data source.</dd>
+<dt><strong><code>sensor_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>The type of sensor generating the data.</dd>
+<dt><strong><code>start_time_str</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The starting timestamp for the simulation in the format
+"YYYY-MM-DD HH:MM:SS". Defaults to "2024-12-27 00:00:00".</dd>
+<dt><strong><code>temperature_base</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The base temperature value in degrees Celsius. Defaults to 27.</dd>
+<dt><strong><code>temperature_amplitude</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The amplitude of the sinusoidal temperature variation. Defaults to 0.5.</dd>
+<dt><strong><code>humidity_base</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The base humidity value in percentage. Defaults to 50.</dd>
+<dt><strong><code>humidity_amplitude</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The amplitude of the sinusoidal humidity variation. Defaults to 0.5.</dd>
+<dt><strong><code>co2_base</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The base CO2 level in ppm. Defaults to 500.</dd>
+<dt><strong><code>co2_spike_chance</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The probability of a CO2 spike occurring at each time step. Defaults to 0.01.</dd>
+<dt><strong><code>co2_spike_magnitude_range</code></strong> :&ensp;<code>tuple</code>, optional</dt>
+<dd>The range of CO2 spike magnitudes in ppm. Defaults to (300, 800).</dd>
+<dt><strong><code>temperature_noise_std</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The standard deviation of random noise added to temperature. Defaults to 0.05.</dd>
+<dt><strong><code>humidity_noise_std</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The standard deviation of random noise added to humidity. Defaults to 1.5.</dd>
+<dt><strong><code>co2_noise_std</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The standard deviation of random noise added to CO2 levels. Defaults to 20.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>A tuple containing:
+- temperature (float): The simulated temperature value in degrees Celsius.
+- humidity (float): The simulated humidity value in percentage.
+- co2 (float): The simulated CO2 level in ppm.</dd>
+</dl></div>
+</dd>
+<dt id="agent.agent_simulation.IAQSensorSimulator.generate_iot_data"><code class="name flex">
+<span>def <span class="ident">generate_iot_data</span></span>(<span>self, device_id, did, sensor_type) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_iot_data(self, device_id, did, sensor_type) -&gt; dict:
+    &#34;&#34;&#34;
+    Generates IoT data for a given device based on the specified sensor type.
+    Args:
+        device_id (str): The unique identifier of the IoT device.
+        did (str): The unique identifier for the data entry.
+        sensor_type (str): The type of sensor data to generate. 
+            Supported values are:
+            - &#39;power_meter&#39;: Generates power meter data.
+            - &#39;temperature&#39;: Generates temperature data.
+            - &#39;humidity&#39;: Generates humidity data.
+            - &#39;co2&#39;: Generates CO2 data.
+            - &#39;online_status&#39;: Generates online status data.
+            - &#39;occupancy_status&#39;: Generates occupancy status data.
+            - &#39;sensitivity&#39;: Generates sensitivity data.
+    Returns:
+        dict: A dictionary containing the generated IoT data with the following keys:
+            - &#34;datetime&#34; (str): The ISO 8601 formatted timestamp of the data.
+            - &#34;id&#34; (str): The unique identifier for the data entry.
+            - &#34;device_id&#34; (str): The unique identifier of the IoT device.
+            - &#34;&lt;sensor_type&gt;&#34; (varies): The generated value for the specified sensor type.
+            - &#34;sensor_type&#34; (str): The type of sensor data generated.
+    Notes:
+        - The method uses helper functions to generate specific types of data:
+          `generate_iaq_data_advanced`, `generate_occupancy_data_advanced`, and 
+          `generate_power_data_advanced`.
+        - The `locals()` function is used to dynamically access the generated 
+          sensor data based on the `sensor_type`.
+    &#34;&#34;&#34;
+    current_time = datetime.strptime(&#34;2024-12-27 00:00:00&#34;, &#34;%Y-%m-%d %H:%M:%S&#34;)
+    current_time = current_time + self.interval_total_seconds * timedelta(seconds=1)
+
+    # NOTE: These variables are used in locals() to access the generated data
+    temperature, humidity, co2 = self.generate_iaq_data_advanced(device_id, did, sensor_type)
+    online_status, sensitivity, occupancy_status = self.generate_occupancy_data_advanced(device_id, did, sensor_type)
+    power_meter = self.generate_power_data_advanced(device_id, did, sensor_type)
+    if sensor_type == &#39;power_meter&#39;:
+        return {
+            &#34;datetime&#34;: current_time.isoformat(),
+            &#39;id&#39;: did,
+            &#34;device_id&#34;: device_id,
+            &#34;power_meter&#34;: round(power_meter, 2),
+            &#34;sensor_type&#34;: sensor_type
+        }
+    elif sensor_type in [&#39;temperature&#39;, &#39;humidity&#39;, &#39;co2&#39;]:
+        return {
+            &#34;datetime&#34;: current_time.isoformat(),
+            &#34;id&#34;: did,
+            &#34;device_id&#34;: device_id,
+            sensor_type: round(locals()[sensor_type], 2),
+            &#34;sensor_type&#34;: sensor_type
+        }
+    elif sensor_type in [&#39;online_status&#39;, &#39;occupancy_status&#39;, &#39;sensitivity&#39;]:
+        return {
+            &#34;datetime&#34;: current_time.isoformat(),
+            &#34;id&#34;: did,
+            &#34;device_id&#34;: device_id,
+            sensor_type: locals()[sensor_type],
+            &#34;sensor_type&#34;: sensor_type
+        }</code></pre>
+</details>
+<div class="desc"><p>Generates IoT data for a given device based on the specified sensor type.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>device_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>The unique identifier of the IoT device.</dd>
+<dt><strong><code>did</code></strong> :&ensp;<code>str</code></dt>
+<dd>The unique identifier for the data entry.</dd>
+<dt><strong><code>sensor_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>The type of sensor data to generate.
+Supported values are:
+- 'power_meter': Generates power meter data.
+- 'temperature': Generates temperature data.
+- 'humidity': Generates humidity data.
+- 'co2': Generates CO2 data.
+- 'online_status': Generates online status data.
+- 'occupancy_status': Generates occupancy status data.
+- 'sensitivity': Generates sensitivity data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>A dictionary containing the generated IoT data with the following keys:
+- "datetime" (str): The ISO 8601 formatted timestamp of the data.
+- "id" (str): The unique identifier for the data entry.
+- "device_id" (str): The unique identifier of the IoT device.
+- "<sensor_type>" (varies): The generated value for the specified sensor type.
+- "sensor_type" (str): The type of sensor data generated.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The method uses helper functions to generate specific types of data:
+<code>generate_iaq_data_advanced</code>, <code>generate_occupancy_data_advanced</code>, and
+<code>generate_power_data_advanced</code>.</li>
+<li>The <code>locals()</code> function is used to dynamically access the generated
+sensor data based on the <code>sensor_type</code>.</li>
+</ul></div>
+</dd>
+<dt id="agent.agent_simulation.IAQSensorSimulator.generate_occupancy_data_advanced"><code class="name flex">
+<span>def <span class="ident">generate_occupancy_data_advanced</span></span>(<span>self, device_id, did, sensor_type) ‑> tuple</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_occupancy_data_advanced(self, device_id, did, sensor_type) -&gt; tuple:
+    &#34;&#34;&#34;
+    Generates advanced occupancy data for a given device.
+    This method simulates the occupancy status, online status, and sensitivity 
+    of a device based on the current time and random chance. It also introduces 
+    a small probability of anomalies in the generated data.
+    Args:
+        device_id (str): The unique identifier of the device.
+        did (str): The device ID used for internal processing.
+        sensor_type (str): The type of sensor associated with the device.
+    Returns:
+        tuple: A tuple containing:
+            - online_status (str): The online status of the device, either &#39;online&#39; or &#39;offline&#39;.
+            - sensitivity (str): The sensitivity level of the device, represented as a percentage 
+                (&#39;0%&#39;, &#39;25%&#39;, &#39;50%&#39;, &#39;75%&#39;, or &#39;100%&#39;).
+            - occupancy_status (str): The occupancy status of the device, either &#39;occupied&#39; or &#39;unoccupied&#39;.
+    &#34;&#34;&#34;
+    current_time = datetime.strptime(&#34;2024-12-27 00:00:00&#34;, &#34;%Y-%m-%d %H:%M:%S&#34;)
+    current_time = current_time + self.interval_total_seconds * timedelta(seconds=1)
+    if 0 &lt;= current_time.hour &lt; 6 or 12 &lt;= current_time.hour &lt; 18:
+        occupancy_status = &#39;unoccupied&#39;
+        occupancy_chance = random.random()
+        if occupancy_chance &lt; 0.02:
+            occupancy_status = &#39;occupied&#39;
+    else:
+        occupancy_status = &#39;occupied&#39;
+
+    online_chance = random.random()
+    if online_chance &lt; 0.02:
+        online_status = &#39;offline&#39;
+    else:
+        online_status = &#39;online&#39;
+
+    if online_status == &#39;offline&#39;:
+        sensitivity = &#39;0%&#39;
+    elif random.random() &gt; 0.02:
+        sensitivity = &#39;100%&#39;
+    else:
+        sensitivity = random.choice([&#39;0%&#39;, &#39;25%&#39;, &#39;50%&#39;, &#39;75%&#39;])
+    
+    return online_status, sensitivity, occupancy_status</code></pre>
+</details>
+<div class="desc"><p>Generates advanced occupancy data for a given device.
+This method simulates the occupancy status, online status, and sensitivity
+of a device based on the current time and random chance. It also introduces
+a small probability of anomalies in the generated data.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>device_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>The unique identifier of the device.</dd>
+<dt><strong><code>did</code></strong> :&ensp;<code>str</code></dt>
+<dd>The device ID used for internal processing.</dd>
+<dt><strong><code>sensor_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>The type of sensor associated with the device.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>A tuple containing:
+- online_status (str): The online status of the device, either 'online' or 'offline'.
+- sensitivity (str): The sensitivity level of the device, represented as a percentage
+('0%', '25%', '50%', '75%', or '100%').
+- occupancy_status (str): The occupancy status of the device, either 'occupied' or 'unoccupied'.</dd>
+</dl></div>
+</dd>
+<dt id="agent.agent_simulation.IAQSensorSimulator.generate_power_data_advanced"><code class="name flex">
+<span>def <span class="ident">generate_power_data_advanced</span></span>(<span>self, device_id, did, sensor_type) ‑> float</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_power_data_advanced(self, device_id, did, sensor_type) -&gt; float:
+    &#34;&#34;&#34;
+    Generates simulated power consumption data for a device with advanced features 
+    such as random noise, base power, and occasional power spikes.
+    Args:
+        device_id (str): The unique identifier for the device.
+        did (str): Additional identifier for the device (not used in the current implementation).
+        sensor_type (str): The type of sensor associated with the device (not used in the current implementation).
+    Returns:
+        float: Simulated power consumption value in kilowatts (kW).
+    Notes:
+        - The base power consumption is randomly generated within a range of 0.1 to 2.5 kW.
+        - Power spikes occur with a 10% probability and have a magnitude between 3 and 10 kW.
+        - Power spikes decay over time with a random decay factor between 0.95 and 0.99.
+        - Random Gaussian noise with a standard deviation of 0.1 kW is added to the final power value.
+    &#34;&#34;&#34;
+    power_spike_magnitude_range = (3, 10)  # kW
+    power_base = random.uniform(0.1, 2.5)  # kW
+    power_noise_std = 0.1  # kW
+    power_spike_chance = random.random()
+    power_spike_decay = random.uniform(0.95, 0.99)
+    power_spike_value = 0
+
+    if power_spike_value &gt; 0:
+        power_spike_value *= power_spike_decay
+    elif power_spike_chance &lt; 0.1:  # 10% chance of a spike
+        power_spike_value = random.randint(*power_spike_magnitude_range)
+        power_spike_decay = random.uniform(0.95, 0.99)
+
+    power_meter = power_base + power_spike_value + random.gauss(0, power_noise_std)
+    return power_meter</code></pre>
+</details>
+<div class="desc"><p>Generates simulated power consumption data for a device with advanced features
+such as random noise, base power, and occasional power spikes.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>device_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>The unique identifier for the device.</dd>
+<dt><strong><code>did</code></strong> :&ensp;<code>str</code></dt>
+<dd>Additional identifier for the device (not used in the current implementation).</dd>
+<dt><strong><code>sensor_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>The type of sensor associated with the device (not used in the current implementation).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Simulated power consumption value in kilowatts (kW).</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The base power consumption is randomly generated within a range of 0.1 to 2.5 kW.</li>
+<li>Power spikes occur with a 10% probability and have a magnitude between 3 and 10 kW.</li>
+<li>Power spikes decay over time with a random decay factor between 0.95 and 0.99.</li>
+<li>Random Gaussian noise with a standard deviation of 0.1 kW is added to the final power value.</li>
+</ul></div>
+</dd>
+<dt id="agent.agent_simulation.IAQSensorSimulator.get_devices_from_supabase"><code class="name flex">
+<span>def <span class="ident">get_devices_from_supabase</span></span>(<span>self) ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_devices_from_supabase(self) -&gt; list:
+    &#34;&#34;&#34;
+    Fetches a list of devices from the Supabase database.
+
+    This method queries the &#39;devices&#39; table in the Supabase database and retrieves
+    all records. If devices are found, they are returned as a list. If no devices
+    are found, an empty list is returned, and a message is printed to indicate this.
+
+    Returns:
+        list: A list of device records if found, otherwise an empty list.
+    &#34;&#34;&#34;
+    # Fetch devices from Supabase
+    devices = self.supabase.table(&#39;devices&#39;).select(&#39;*&#39;).execute()
+    if devices.data:
+        return devices.data
+    else:
+        logging.info(&#34;No devices found in Supabase.&#34;)
+        return []</code></pre>
+</details>
+<div class="desc"><p>Fetches a list of devices from the Supabase database.</p>
+<p>This method queries the 'devices' table in the Supabase database and retrieves
+all records. If devices are found, they are returned as a list. If no devices
+are found, an empty list is returned, and a message is printed to indicate this.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>A list of device records if found, otherwise an empty list.</dd>
+</dl></div>
+</dd>
+<dt id="agent.agent_simulation.IAQSensorSimulator.init_rabbitmq"><code class="name flex">
+<span>async def <span class="ident">init_rabbitmq</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def init_rabbitmq(self) -&gt; None:
+    &#34;&#34;&#34;
+    Initialize a connection to RabbitMQ using a robust connection and set up
+    a communication channel with a durable topic exchange.
+
+    This method establishes a robust connection to the RabbitMQ server using
+    the provided RabbitMQ URL, creates a communication channel, and declares
+    a durable topic exchange with the specified exchange name.
+    &#34;&#34;&#34;
+    self.connection = await connect_robust(self.RABBITMQ_URL)
+    self.channel = await self.connection.channel()
+    self.exchange = await self.channel.declare_exchange(
+                        name=self.EXCHANGE_NAME,
+                        type=&#39;topic&#39;,
+                        durable=True
+                    )</code></pre>
+</details>
+<div class="desc"><p>Initialize a connection to RabbitMQ using a robust connection and set up
+a communication channel with a durable topic exchange.</p>
+<p>This method establishes a robust connection to the RabbitMQ server using
+the provided RabbitMQ URL, creates a communication channel, and declares
+a durable topic exchange with the specified exchange name.</p></div>
+</dd>
+<dt id="agent.agent_simulation.IAQSensorSimulator.publish_batch"><code class="name flex">
+<span>async def <span class="ident">publish_batch</span></span>(<span>self, json_list) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def publish_batch(self, json_list) -&gt; None:
+    &#34;&#34;&#34;
+    Publishes a batch of JSON messages to RabbitMQ queues based on sensor types.
+    This asynchronous method connects to a RabbitMQ server, declares queues dynamically
+    based on the `sensor_type` field in each message, binds the queues to an exchange,
+    and publishes the messages to the appropriate queues.
+    Args:
+        json_list (list): A list of dictionaries, where each dictionary represents a 
+                          JSON message containing a `sensor_type` key and other data.
+    Raises:
+        Exception: If there is an issue with connecting to RabbitMQ, declaring queues,
+                   or publishing messages.
+    Notes:
+        - The RabbitMQ connection URL is retrieved from the `RABBITMQ_URL` environment variable.
+        - The queues are declared as durable, ensuring they persist even if RabbitMQ restarts.
+        - The messages are published with a delivery mode of 2, making them persistent.
+        - The method uses asyncio to handle multiple tasks concurrently.
+    &#34;&#34;&#34;
+    connection = await connect_robust(config(&#39;RABBITMQ_URL&#39;))
+    channel = await connection.channel()
+    tasks = []
+    for msg in json_list:
+        sensor_type = msg[&#39;sensor_type&#39;]
+        queue_name = f&#34;{sensor_type}_queue&#34;
+        await channel.declare_queue(queue_name, durable=True)
+        queue = await channel.declare_queue(queue_name, durable=True)
+        await queue.bind(self.EXCHANGE_NAME, routing_key=queue_name)
+        tasks.append(
+            self.exchange.publish(
+                Message(body=json.dumps(msg).encode(), delivery_mode=2),
+                routing_key=queue_name
+            )
+        )
+
+    await asyncio.gather(*tasks)
+    await connection.close()</code></pre>
+</details>
+<div class="desc"><p>Publishes a batch of JSON messages to RabbitMQ queues based on sensor types.
+This asynchronous method connects to a RabbitMQ server, declares queues dynamically
+based on the <code>sensor_type</code> field in each message, binds the queues to an exchange,
+and publishes the messages to the appropriate queues.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>json_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>A list of dictionaries, where each dictionary represents a
+JSON message containing a <code>sensor_type</code> key and other data.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Exception</code></dt>
+<dd>If there is an issue with connecting to RabbitMQ, declaring queues,
+or publishing messages.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The RabbitMQ connection URL is retrieved from the <code>RABBITMQ_URL</code> environment variable.</li>
+<li>The queues are declared as durable, ensuring they persist even if RabbitMQ restarts.</li>
+<li>The messages are published with a delivery mode of 2, making them persistent.</li>
+<li>The method uses asyncio to handle multiple tasks concurrently.</li>
+</ul></div>
+</dd>
+<dt id="agent.agent_simulation.IAQSensorSimulator.publish_to_rabbitmq"><code class="name flex">
+<span>def <span class="ident">publish_to_rabbitmq</span></span>(<span>self, data_list) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def publish_to_rabbitmq(self, data_list) -&gt; None:
+    &#34;&#34;&#34;
+    Publishes a list of data to RabbitMQ with dynamically generated routing keys.
+    This method processes a list of data dictionaries, determines the appropriate
+    routing key for each data item based on its `sensor_type` and `device_id`, and
+    publishes the data to a RabbitMQ exchange.
+    Args:
+        data_list (list): A list of dictionaries, where each dictionary represents
+            a data item to be published. Each dictionary must contain the following keys:
+            - &#39;device_id&#39; (str): The unique identifier of the device, formatted as a
+              string with parts separated by hyphens.
+            - &#39;sensor_type&#39; (str): The type of sensor (e.g., &#39;temperature&#39;, &#39;humidity&#39;,
+              &#39;power_meter_...&#39;, etc.).
+    Routing Key Generation:
+        - For sensor types starting with &#39;power_meter_&#39;, the routing key suffix is &#34;POW&#34;.
+        - For other sensor types, the suffix is determined by the `routing_key_map`.
+        - If the sensor type is not found in the `routing_key_map`, the suffix defaults
+          to &#34;UNKNOWN&#34;.
+        - The final routing key is constructed by combining the first three parts of
+          the `device_id` with the suffix, separated by hyphens.
+    RabbitMQ Operations:
+        - Declares a queue with the generated routing key.
+        - Binds the queue to the specified exchange using the routing key.
+        - Publishes the data to the exchange with the routing key.
+    Raises:
+        KeyError: If a required key (&#39;device_id&#39; or &#39;sensor_type&#39;) is missing from a
+            data dictionary in the `data_list`.
+        Exception: If there is an issue with RabbitMQ operations (e.g., queue declaration,
+            binding, or publishing).
+    Note:
+        This method assumes that `self.channel` is a valid RabbitMQ channel and
+        `self.EXCHANGE_NAME` is the name of the RabbitMQ exchange to publish to.
+    &#34;&#34;&#34;
+    routing_key_map = {
+        &#39;temperature&#39;: &#39;IAQ&#39;,
+        &#39;humidity&#39;: &#39;IAQ&#39;,
+        &#39;co2&#39;: &#39;IAQ&#39;,
+        &#39;online_status&#39;: &#39;OCC&#39;,
+        &#39;occupancy_status&#39;: &#39;OCC&#39;,
+        &#39;sensitivity&#39;: &#39;OCC&#39;
+    }
+
+    for data in data_list:
+        device_id_parts = data[&#39;device_id&#39;].split(&#39;-&#39;)
+        sensor_type = data[&#39;sensor_type&#39;]
+        if sensor_type.startswith(&#39;power_meter_&#39;):
+            routing_key_suffix = &#34;POW&#34;
+        else:
+            routing_key_suffix = routing_key_map.get(sensor_type, &#34;UNKNOWN&#34;)
+        routing_key = &#39;-&#39;.join(device_id_parts[:3]) + f&#34;-{routing_key_suffix}&#34;
+        self.channel.queue_declare(queue=routing_key)
+        self.channel.queue_bind(exchange=self.EXCHANGE_NAME, queue=routing_key, routing_key=routing_key)
+        self.channel.basic_publish(exchange=self.EXCHANGE_NAME, routing_key=routing_key, body=json.dumps(data))</code></pre>
+</details>
+<div class="desc"><p>Publishes a list of data to RabbitMQ with dynamically generated routing keys.
+This method processes a list of data dictionaries, determines the appropriate
+routing key for each data item based on its <code>sensor_type</code> and <code>device_id</code>, and
+publishes the data to a RabbitMQ exchange.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>A list of dictionaries, where each dictionary represents
+a data item to be published. Each dictionary must contain the following keys:
+- 'device_id' (str): The unique identifier of the device, formatted as a
+string with parts separated by hyphens.
+- 'sensor_type' (str): The type of sensor (e.g., 'temperature', 'humidity',
+'power_meter_&hellip;', etc.).</dd>
+</dl>
+<p>Routing Key Generation:
+- For sensor types starting with 'power_meter_', the routing key suffix is "POW".
+- For other sensor types, the suffix is determined by the <code>routing_key_map</code>.
+- If the sensor type is not found in the <code>routing_key_map</code>, the suffix defaults
+to "UNKNOWN".
+- The final routing key is constructed by combining the first three parts of
+the <code>device_id</code> with the suffix, separated by hyphens.
+RabbitMQ Operations:
+- Declares a queue with the generated routing key.
+- Binds the queue to the specified exchange using the routing key.
+- Publishes the data to the exchange with the routing key.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>KeyError</code></dt>
+<dd>If a required key ('device_id' or 'sensor_type') is missing from a
+data dictionary in the <code>data_list</code>.</dd>
+<dt><code>Exception</code></dt>
+<dd>If there is an issue with RabbitMQ operations (e.g., queue declaration,
+binding, or publishing).</dd>
+</dl>
+<h2 id="note">Note</h2>
+<p>This method assumes that <code>self.channel</code> is a valid RabbitMQ channel and
+<code>self.EXCHANGE_NAME</code> is the name of the RabbitMQ exchange to publish to.</p></div>
+</dd>
+<dt id="agent.agent_simulation.IAQSensorSimulator.publish_to_supabase"><code class="name flex">
+<span>def <span class="ident">publish_to_supabase</span></span>(<span>self, data_list) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def publish_to_supabase(self, data_list) -&gt; None:
+    &#34;&#34;&#34;
+    Publishes a list of sensor data to a Supabase table.
+
+    This method transforms the input data into the required format and uploads it
+    to the &#39;sensor_data_latest&#39; table in Supabase. The transformation includes
+    mapping the input data to a dictionary with specific keys and converting the
+    timestamp to a Unix timestamp.
+
+    Args:
+        data_list (list): A list of dictionaries, where each dictionary contains
+            the following keys:
+            - &#39;device_id&#39; (str): The unique identifier of the device.
+            - &#39;sensor_type&#39; (str): The type of sensor (e.g., temperature, humidity).
+            - &#39;datetime&#39; (str): The ISO 8601 formatted datetime string.
+            - &#39;id&#39; (int): The unique identifier for the data point.
+            - A key matching the value of &#39;sensor_type&#39; (e.g., &#39;temperature&#39;): The
+              sensor reading value.
+
+    Raises:
+        ValueError: If the &#39;datetime&#39; field in the input data cannot be parsed
+            into a valid datetime object.
+
+    Notes:
+        - The &#39;timestamp&#39; field is derived from the &#39;datetime&#39; field and is stored
+          as a Unix timestamp.
+        - The &#39;did&#39; field is derived from the &#39;id&#39; field and is stored as an integer.
+        - The &#39;upsert&#39; operation ensures that existing records with the same
+          &#39;device_id&#39; and &#39;datapoint&#39; are updated, while new records are inserted.
+    &#34;&#34;&#34;
+    # transform data_list to a list of dictionaries with the required keys to match the Supabase table
+    data_list = list(map(lambda x: {
+        &#39;device_id&#39;: x[&#39;device_id&#39;],
+        &#39;datapoint&#39;: x[&#39;sensor_type&#39;],
+        &#39;value&#39;: x[x[&#39;sensor_type&#39;]],
+        &#39;timestamp&#39;: int(datetime.fromisoformat(x[&#39;datetime&#39;]).timestamp()),
+        &#39;datetime&#39;: x[&#39;datetime&#39;],
+        &#39;did&#39;: int(x[&#39;id&#39;])}, data_list))
+    self.supabase.table(&#39;sensor_data_latest&#39;).upsert(data_list, on_conflict=&#39;device_id, datapoint&#39;).execute()</code></pre>
+</details>
+<div class="desc"><p>Publishes a list of sensor data to a Supabase table.</p>
+<p>This method transforms the input data into the required format and uploads it
+to the 'sensor_data_latest' table in Supabase. The transformation includes
+mapping the input data to a dictionary with specific keys and converting the
+timestamp to a Unix timestamp.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>A list of dictionaries, where each dictionary contains
+the following keys:
+- 'device_id' (str): The unique identifier of the device.
+- 'sensor_type' (str): The type of sensor (e.g., temperature, humidity).
+- 'datetime' (str): The ISO 8601 formatted datetime string.
+- 'id' (int): The unique identifier for the data point.
+- A key matching the value of 'sensor_type' (e.g., 'temperature'): The
+sensor reading value.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>If the 'datetime' field in the input data cannot be parsed
+into a valid datetime object.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The 'timestamp' field is derived from the 'datetime' field and is stored
+as a Unix timestamp.</li>
+<li>The 'did' field is derived from the 'id' field and is stored as an integer.</li>
+<li>The 'upsert' operation ensures that existing records with the same
+'device_id' and 'datapoint' are updated, while new records are inserted.</li>
+</ul></div>
+</dd>
+<dt id="agent.agent_simulation.IAQSensorSimulator.run_simulation"><code class="name flex">
+<span>async def <span class="ident">run_simulation</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def run_simulation(self) -&gt; None:
+    &#34;&#34;&#34;
+    Runs the IAQ (Indoor Air Quality) Sensor Simulator.
+    This asynchronous method initializes RabbitMQ, retrieves devices from Supabase, 
+    generates IoT data for each device, and publishes the data to both Supabase 
+    and RabbitMQ in batches. The simulation runs for a specified number of entries 
+    or until interrupted.
+    &#34;&#34;&#34;
+    logging.basicConfig(level=logging.INFO, format=&#39;%(asctime)s - %(levelname)s - %(message)s&#39;)
+    logging.info(&#34;🤖 IAQ Sensor Simulator started.&#34;)
+    logging.info(&#34;🤖 RabbitMQ dashboard available at: http://localhost:15672&#34;)
+    get_devices = self.get_devices_from_supabase()
+    await self.init_rabbitmq()
+
+    try:
+        max_entries = config(&#39;MAX_ENTRIES&#39;, default=1000, cast=int)
+        for _ in range(max_entries):
+            iaq_data_list = list(map(
+                lambda d: self.generate_iot_data(d[&#39;device_identifier&#39;], d[&#39;id&#39;], d[&#39;sensor_type&#39;]),
+                get_devices
+            ))
+            iaq_data_list = list(filter(None, iaq_data_list))
+            self.publish_to_supabase(iaq_data_list)
+            await self.publish_batch(iaq_data_list)
+
+            self.interval_total_seconds += self.interval_seconds
+            await asyncio.sleep(self.interval_seconds)
+
+    except KeyboardInterrupt:
+        logging.info(&#34;IAQ Sensor Simulator stopped.&#34;)
+    except Exception as e:
+        logging.error(f&#34;Simulation error: {e}&#34;)
+    finally:
+        await self.close_rabbitmq()
+        logging.info(&#34;Cleanup done. Bye!&#34;)</code></pre>
+</details>
+<div class="desc"><p>Runs the IAQ (Indoor Air Quality) Sensor Simulator.
+This asynchronous method initializes RabbitMQ, retrieves devices from Supabase,
+generates IoT data for each device, and publishes the data to both Supabase
+and RabbitMQ in batches. The simulation runs for a specified number of entries
+or until interrupted.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="agent" href="index.html">agent</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="agent.agent_simulation.main" href="#agent.agent_simulation.main">main</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="agent.agent_simulation.IAQSensorSimulator" href="#agent.agent_simulation.IAQSensorSimulator">IAQSensorSimulator</a></code></h4>
+<ul class="">
+<li><code><a title="agent.agent_simulation.IAQSensorSimulator.close_rabbitmq" href="#agent.agent_simulation.IAQSensorSimulator.close_rabbitmq">close_rabbitmq</a></code></li>
+<li><code><a title="agent.agent_simulation.IAQSensorSimulator.generate_iaq_data_advanced" href="#agent.agent_simulation.IAQSensorSimulator.generate_iaq_data_advanced">generate_iaq_data_advanced</a></code></li>
+<li><code><a title="agent.agent_simulation.IAQSensorSimulator.generate_iot_data" href="#agent.agent_simulation.IAQSensorSimulator.generate_iot_data">generate_iot_data</a></code></li>
+<li><code><a title="agent.agent_simulation.IAQSensorSimulator.generate_occupancy_data_advanced" href="#agent.agent_simulation.IAQSensorSimulator.generate_occupancy_data_advanced">generate_occupancy_data_advanced</a></code></li>
+<li><code><a title="agent.agent_simulation.IAQSensorSimulator.generate_power_data_advanced" href="#agent.agent_simulation.IAQSensorSimulator.generate_power_data_advanced">generate_power_data_advanced</a></code></li>
+<li><code><a title="agent.agent_simulation.IAQSensorSimulator.get_devices_from_supabase" href="#agent.agent_simulation.IAQSensorSimulator.get_devices_from_supabase">get_devices_from_supabase</a></code></li>
+<li><code><a title="agent.agent_simulation.IAQSensorSimulator.init_rabbitmq" href="#agent.agent_simulation.IAQSensorSimulator.init_rabbitmq">init_rabbitmq</a></code></li>
+<li><code><a title="agent.agent_simulation.IAQSensorSimulator.publish_batch" href="#agent.agent_simulation.IAQSensorSimulator.publish_batch">publish_batch</a></code></li>
+<li><code><a title="agent.agent_simulation.IAQSensorSimulator.publish_to_rabbitmq" href="#agent.agent_simulation.IAQSensorSimulator.publish_to_rabbitmq">publish_to_rabbitmq</a></code></li>
+<li><code><a title="agent.agent_simulation.IAQSensorSimulator.publish_to_supabase" href="#agent.agent_simulation.IAQSensorSimulator.publish_to_supabase">publish_to_supabase</a></code></li>
+<li><code><a title="agent.agent_simulation.IAQSensorSimulator.run_simulation" href="#agent.agent_simulation.IAQSensorSimulator.run_simulation">run_simulation</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

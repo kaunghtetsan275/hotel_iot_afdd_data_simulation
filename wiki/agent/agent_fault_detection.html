@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>agent.agent_fault_detection API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>agent.agent_fault_detection</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="agent.agent_fault_detection.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    try:
+        logging.info()
+        logging.info(&#34;👾 Initializing Fault Detection Agent...&#34;)
+        agent = FaultDetectionAgent()
+        agent.init_db_connection()
+        agent.init_rabbitmq_connection()
+        agent.fault_thresholds = agent.get_initial_thresholds()
+        logging.info(&#34;👾🔧 Initial Thresholds loaded&#34;)
+
+        thread = Thread(target=agent.run_fault_detection, daemon=True)
+        thread.start()
+
+        asyncio.run(agent.setup_realtime_subscription())
+    except KeyboardInterrupt:
+        logging.info(&#34; [!] Exiting...&#34;)
+    except Exception as e:
+        logging.error(f&#34; [!] Error: {e}&#34;)
+    finally:
+        logging.info(&#34; [✓] Connections closed.&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent"><code class="flex name class">
+<span>class <span class="ident">FaultDetectionAgent</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FaultDetectionAgent:
+    def __init__(self):
+        # Configure logging
+        logging.basicConfig(level=logging.INFO, format=&#39;%(asctime)s - %(levelname)s - %(message)s&#39;)
+
+        # RabbitMQ connection parameters
+        self.RABBITMQ_HOST = &#39;localhost&#39; if config(&#39;ENVIRONMENT&#39;, default=&#39;local&#39;) == &#39;local&#39; else config(&#39;RABBITMQ_HOST&#39;)
+        self.EXCHANGE_NAME = config(&#39;EXCHANGE_NAME&#39;, default=&#39;hotel_iot&#39;)
+        self.ALERT_EXCHANGE_NAME = config(&#39;ALERT_EXCHANGE_NAME&#39;, default=&#39;fault_alerts&#39;)
+
+        # Initialize Supabase client
+        self.SUPABASE_URL = config(&#39;SUPABASE_URL&#39;)
+        self.SUPABASE_API_KEY = config(&#39;SUPABASE_API_KEY&#39;)
+        self.supabase = create_client(self.SUPABASE_URL, self.SUPABASE_API_KEY)
+
+        self.fault_thresholds = {} # Global variable to store current thresholds
+        self.last_occupied = {} # In-memory state to track last occupancy time (for stuck occupied detection)
+
+        # TimescaleDB connection
+        self.DB_NAME = config(&#39;TIMESCALEDB_DATABASE&#39;)
+        self.DB_USER = config(&#39;TIMESCALEDB_USER&#39;)
+        self.DB_PASSWORD = config(&#39;TIMESCALEDB_PASSWORD&#39;)
+        self.DB_PORT = config(&#39;TIMESCALEDB_PORT&#39;, default=&#39;5432&#39;)
+        self.DB_HOST = config(&#39;TIMESCALEDB_HOST&#39;) if config(&#39;ENVIRONMENT&#39;, default=&#39;local&#39;) == &#39;docker&#39; else &#39;localhost&#39;
+
+
+    def init_db_connection(self):
+        self.conn = psycopg2.connect(
+            dbname=self.DB_NAME,
+            user=self.DB_USER,
+            password=self.DB_PASSWORD,
+            host=self.DB_HOST,
+            port=self.DB_PORT
+        )
+        self.cursor = self.conn.cursor()
+
+        # Check if table named raw_data exists
+        self.cursor.execute(&#34;SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = &#39;raw_data&#39;)&#34;)
+        if self.cursor.fetchone()[0]:
+            logging.info(&#34;👾 TimescaleDB table &#39;raw_data&#39; exists.&#34;)
+        else:
+            logging.info(&#34;👾 TimescaleDB table &#39;raw_data&#39; does not exist. Creating it...&#34;)
+            self.cursor.execute(&#34;&#34;&#34;
+                CREATE TABLE raw_data (
+                    id SERIAL PRIMARY KEY,
+                    timestamp BIGINT NOT NULL,
+                    datetime TIMESTAMP NOT NULL,
+                    device_id VARCHAR(50) NOT NULL,
+                    datapoint VARCHAR(50) NOT NULL,
+                    value TEXT NOT NULL,
+                    did INTEGER
+                )
+            &#34;&#34;&#34;)
+            self.conn.commit()
+            logging.info(&#34;👾 TimescaleDB table &#39;raw_data&#39; created.&#34;)
+
+    def init_rabbitmq_connection(self) -&gt; None:
+        &#34;&#34;&#34;
+        Initializes the RabbitMQ connection and sets up the exchange channel.
+        &#34;&#34;&#34;
+        # RabbitMQ connection
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(self.RABBITMQ_HOST))
+        self.channel = self.connection.channel()
+        self.exchange = self.channel.exchange_declare(exchange=self.ALERT_EXCHANGE_NAME, exchange_type=&#39;topic&#39;)
+
+
+    def insert_row_data(self, data) -&gt; None:
+        &#34;&#34;&#34;
+        Inserts processed row data into the raw_data database table.
+        &#34;&#34;&#34;
+        insert_queries = []
+        skipped_keys = [&#39;datetime&#39;, &#39;device_id&#39;, &#39;id&#39;, &#39;sensor_type&#39;]
+        timestamp = data[&#34;datetime&#34;]
+        
+        for key in data.keys():
+            if key in skipped_keys:
+                continue
+            insert_queries.append((
+                int(datetime.fromisoformat(timestamp).timestamp()),
+                datetime.fromisoformat(timestamp),
+                data[&#34;device_id&#34;],
+                key,
+                str(data[key]),
+                data[&#34;id&#34;]
+            ))
+
+        self.cursor.executemany(
+            &#34;&#34;&#34;
+            INSERT INTO raw_data (timestamp, datetime, device_id, datapoint, value, did)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            &#34;&#34;&#34;,
+            insert_queries
+        )
+        self.conn.commit()
+
+    def process_and_insert_data(self, data: Dict[str, Any]) -&gt; None:
+        &#34;&#34;&#34;
+        Processes incoming data and inserts it into the database if valid.
+        &#34;&#34;&#34;
+        if not data.get(&#34;datetime&#34;):
+            logging.info(&#34; [!] No timestamp found in data.&#34;)
+            return
+        try:
+            self.insert_row_data(data)
+        except (TypeError, ValueError):
+            logging.error(&#34; [!] Invalid IAQ sensor data received. Non-numeric values detected.&#34;)
+            return
+        except Exception as e:
+            logging.error(f&#34; [!] Error inserting data into TimescaleDB: {e}&#34;)
+            return
+
+    def get_default_thresholds(self) -&gt; dict:
+        &#34;&#34;&#34;Retrieve the default thresholds.&#34;&#34;&#34;
+        return {
+            &#39;iaq&#39;: {
+                &#39;temperature_low&#39;: 18,
+                &#39;temperature_high&#39;: 26,
+                &#39;humidity_low&#39;: 30,
+                &#39;humidity_high&#39;: 60,
+                &#39;co2_low&#39;: 400,
+                &#39;co2_high&#39;: 1000
+            },
+            &#39;power&#39;: {
+                &#39;power_spike_threshold&#39;: 1
+            },
+            &#39;occupancy&#39;: {
+                &#39;stuck_occupied_timeout&#39;: 24
+            }
+        }
+
+    def get_initial_thresholds(self) -&gt; dict:
+        &#34;&#34;&#34;
+        Retrieve initial fault detection thresholds from Supabase or use defaults.
+        &#34;&#34;&#34;
+        response = self.supabase.table(&#39;fault_thresholds&#39;).select(&#39;*&#39;).execute()
+        if response.data:
+            logging.info(&#34;👾 Read thresholds from Supabase&#34;)
+            return self.process_threshold_data(response.data[0])
+        else:
+            return self.get_default_thresholds()
+
+    def process_threshold_data(self, record: dict) -&gt; dict:
+        &#34;&#34;&#34;
+        Processes threshold data from a record dictionary into a structured format.
+        &#34;&#34;&#34;
+        return {
+            &#39;iaq&#39;: {
+                &#39;temperature_low&#39;: record.get(&#39;temperature_min&#39;),
+                &#39;temperature_high&#39;: record.get(&#39;temperature_max&#39;),
+                &#39;humidity_low&#39;: record.get(&#39;humidity_min&#39;),
+                &#39;humidity_high&#39;: record.get(&#39;humidity_max&#39;),
+                &#39;co2_low&#39;: record.get(&#39;co2_min&#39;),
+                &#39;co2_high&#39;: record.get(&#39;co2_max&#39;)
+            },
+            &#39;power&#39;: {
+                &#39;power_spike_threshold&#39;: record.get(&#39;power_kw_max&#39;)
+            },
+            &#39;occupancy&#39;: {
+                &#39;stuck_occupied_timeout&#39;: record.get(&#39;sensitivity_max&#39;)
+            }
+        }
+
+    async def setup_realtime_subscription(self) -&gt; None:
+        &#34;&#34;&#34;
+        Sets up a realtime subscription to monitor and handle table changes.
+        &#34;&#34;&#34;
+        async_client = await create_async_client(config(&#39;SUPABASE_URL&#39;), config(&#39;SUPABASE_API_KEY&#39;))
+
+        def handle_change(payload):
+            logging.info(&#34;👾 Threshold updated from somewhere else!&#34;)
+            if payload[&#39;event_type&#39;] in (&#39;INSERT&#39;, &#39;UPDATE&#39;):
+                self.fault_thresholds = self.process_threshold_data(payload[&#39;new&#39;])
+            elif payload[&#39;event_type&#39;] == &#39;DELETE&#39;:
+                self.fault_thresholds = self.get_default_thresholds()
+
+        channel = await async_client.channel(&#39;threshold_changes&#39;)\
+            .on_postgres_changes(
+                event=&#39;UPDATE&#39;,
+                schema=&#39;public&#39;,
+                table=&#39;fault_thresholds&#39;,
+                callback=handle_change
+            ).subscribe()
+        logging.info(&#34;👾[✓] Realtime subscription active for threshold values.&#34;, async_client.realtime.is_connected)
+        while True:
+            await asyncio.sleep(3600)
+
+    def get_queues_for_exchange(self) -&gt; list:
+        &#34;&#34;&#34;
+        Retrieve the list of queue names bound to a specific RabbitMQ exchange.
+        &#34;&#34;&#34;
+        rabbitmq_host = config(&#39;RABBITMQ_HOST&#39;)
+        url = f&#39;http://{rabbitmq_host}:15672/api/bindings&#39;
+        response = requests.get(url, auth=HTTPBasicAuth(&#39;guest&#39;, &#39;guest&#39;))
+        
+        if response.status_code == 200:
+            bindings = response.json()
+            queues = [
+                binding[&#39;destination&#39;]
+                for binding in bindings
+                if binding[&#39;source&#39;] == config(&#39;EXCHANGE_NAME&#39;) and binding[&#39;destination_type&#39;] == &#39;queue&#39;
+            ]
+            return queues
+        else:
+            logging.error(f&#34;Failed to fetch bindings: {response.status_code}&#34;)
+            return []
+    
+    def run_fault_detection(self) -&gt; None:
+        &#34;&#34;&#34;
+        Listens for sensor data messages and performs fault detection.
+        &#34;&#34;&#34;
+        channel = self.connection.channel()
+        channel.exchange_declare(exchange=self.EXCHANGE_NAME, exchange_type=&#39;topic&#39;, durable=True)
+
+        result = channel.queue_declare(queue=&#39;&#39;, durable=True, exclusive=True)
+        queue_name = result.method.queue
+        channel.queue_bind(exchange=self.EXCHANGE_NAME, queue=queue_name, routing_key=&#39;#&#39;)
+
+        logging.info(&#34;👾🐇 Waiting for sensor data...&#34;)
+
+        def callback(ch, method, properties, body):
+            try:
+                data = json.loads(body.decode())
+                self.detect_faults(data, method.routing_key)
+            except Exception as e:
+                logging.error(&#34;[!] Error processing message:&#34;, e)
+        channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
+        channel.start_consuming()
+
+    def detect_faults(self, sensor_data, queue_name) -&gt; None:
+        &#34;&#34;&#34;
+        Detects faults in sensor data and publishes alerts if thresholds are exceeded.
+        Args:
+            sensor_data (dict): A dictionary containing sensor data. Expected keys include:
+                - &#39;id&#39; (str): The unique identifier for the data.
+                - &#39;device_id&#39; (str): The unique identifier for the device.
+                - &#39;sensor_type&#39; (str): The type of sensor (e.g., &#39;temperature&#39;, &#39;humidity&#39;, &#39;co2&#39;, &#39;power_meter&#39;, etc.).
+                - &#39;datetime&#39; (str): The timestamp of the sensor data in ISO 8601 format.
+                - Additional keys depending on the sensor type (e.g., &#39;temperature&#39;, &#39;humidity&#39;, &#39;co2&#39;, &#39;power_meter&#39;, &#39;occupancy&#39;).
+            queue_name (str): The name of the queue to which alerts should be published.
+        Returns:
+            None
+        Behavior:
+            - For &#39;temperature&#39;, &#39;humidity&#39;, and &#39;co2&#39; sensors:
+                - Checks if the values exceed predefined thresholds for indoor air quality (IAQ).
+                - Publishes alerts for high or low temperature, humidity, or high CO2 levels.
+                - Processes and inserts the sensor data, marking whether an IAQ fault was detected.
+            - For &#39;power_meter&#39; sensors:
+                - Detects power spikes based on a predefined threshold.
+                - Publishes alerts for power spikes.
+                - Processes and inserts the sensor data, marking whether a power fault was detected.
+            - For &#39;online_status&#39;, &#39;occupancy_status&#39;, and &#39;sensitivity&#39; sensors:
+                - Tracks room occupancy states and timestamps.
+                - Detects if a room has been marked as occupied for too long, indicating a potential sensor issue.
+                - Publishes alerts for stuck occupancy states.
+                - Processes and inserts the sensor data, marking whether an occupancy fault was detected.
+            - Logs warnings if incomplete sensor data is received.
+        &#34;&#34;&#34;
+        did = sensor_data.get(&#39;id&#39;)
+        device_id = sensor_data.get(&#39;device_id&#39;)
+        sensor_type = sensor_data.get(&#39;sensor_type&#39;)
+        timestamp = sensor_data.get(&#39;datetime&#39;)
+
+        if not all([device_id, timestamp]):
+            logging.warning(&#34; [!] Incomplete sensor data received.&#34;)
+            return
+
+        if sensor_type in [&#39;temperature&#39;, &#39;humidity&#39;, &#39;co2&#39;]:
+            iaq_fault = False
+            temperature = sensor_data.get(&#39;temperature&#39;)
+            humidity = sensor_data.get(&#39;humidity&#39;)
+            co2 = sensor_data.get(&#39;co2&#39;)
+
+            if temperature is not None:
+                if temperature &gt; self.fault_thresholds[&#39;iaq&#39;][&#39;temperature_high&#39;]:
+                    self.publish_alert(queue_name, device_id, did, &#39;temperature_high&#39;, f&#39;Temperature {temperature}°C exceeds threshold {self.fault_thresholds[&#34;iaq&#34;][&#34;temperature_high&#34;]}°C&#39;, timestamp)
+                elif temperature &lt; self.fault_thresholds[&#39;iaq&#39;][&#39;temperature_low&#39;]:
+                    self.publish_alert(queue_name, device_id, did, &#39;temperature_low&#39;, f&#39;Temperature {temperature}°C is below threshold {self.fault_thresholds[&#34;iaq&#34;][&#34;temperature_low&#34;]}°C&#39;, timestamp)
+            if humidity is not None:
+                if humidity &gt; self.fault_thresholds[&#39;iaq&#39;][&#39;humidity_high&#39;]:
+                    self.publish_alert(queue_name, device_id, did, &#39;humidity_high&#39;, f&#39;Humidity {humidity}% exceeds threshold {self.fault_thresholds[&#34;iaq&#34;][&#34;humidity_high&#34;]}%&#39;, timestamp)
+                elif humidity &lt; self.fault_thresholds[&#39;iaq&#39;][&#39;humidity_low&#39;]:
+                    self.publish_alert(queue_name, device_id, did, &#39;humidity_low&#39;, f&#39;Humidity {humidity}% is below threshold {self.fault_thresholds[&#34;iaq&#34;][&#34;humidity_low&#34;]}%&#39;, timestamp)
+            if co2 is not None:
+                if co2 &gt; self.fault_thresholds[&#39;iaq&#39;][&#39;co2_high&#39;]:
+                    self.publish_alert(queue_name, device_id, did, &#39;co2_high&#39;, f&#39;CO2 level {co2} ppm exceeds threshold {self.fault_thresholds[&#34;iaq&#34;][&#34;co2_high&#34;]} ppm&#39;, timestamp)
+            self.process_and_insert_data(sensor_data)
+
+        elif sensor_type == &#39;power_meter&#39;:
+            power_meter = sensor_data.get(&#39;power_meter&#39;)
+            if power_meter is not None:
+                # Simple power spike detection (can be enhanced with moving averages etc.)
+                if power_meter &gt; self.fault_thresholds[&#39;power&#39;][&#39;power_spike_threshold&#39;]:
+                    logging.info(f&#34;👾💥 Power spike detected: {power_meter} kW on device {device_id}&#34;)
+                    self.publish_alert(queue_name, device_id, did, &#39;power_spike&#39;, f&#39;Power consumption spiked to {power_meter} kW on device {device_id}&#39;, timestamp)
+            self.process_and_insert_data(sensor_data)
+
+        elif sensor_type in [&#39;online_status&#39;, &#39;occupancy_status&#39;, &#39;sensitivity&#39;]:
+            room_id = device_id.split(&#39;-&#39;)[2]
+            occupancy_state = sensor_data.get(&#39;occupancy&#39;)
+            if occupancy_state == &#39;occupied&#39;:
+                self.last_occupied[room_id] = datetime.strptime(timestamp, &#39;%Y-%m-%dT%H:%M:%S.%f&#39;)
+            elif occupancy_state == &#39;unoccupied&#39; and room_id in self.last_occupied:
+                del self.last_occupied[room_id] # Reset if unoccupied
+
+            # Detect if a room has been occupied for too long (potential sensor issue)
+            if room_id in self.last_occupied:
+                if (datetime.now() - self.last_occupied[room_id]).total_seconds() &gt; self.fault_thresholds[&#39;occupancy&#39;][&#39;stuck_occupied_timeout&#39;] * 3600:
+                    self.publish_alert(queue_name, device_id, did, &#39;stuck_occupied&#39;, f&#39;Room has been occupied since {self.last_occupied[room_id]}&#39;, timestamp)
+            self.process_and_insert_data(sensor_data)
+
+    def publish_to_rabbitmq(self, queue_name, alert_data) -&gt; None:
+        &#34;&#34;&#34;
+        Publishes alert data to a RabbitMQ queue.
+
+        This method declares a queue with the specified queue name, binds it to the
+        alert exchange using the routing key, and publishes the alert data to the queue.
+
+        Args:
+            queue_name (str): The name of the queue to publish the alert data to.
+            alert_data (dict): The alert data to be published. It will be serialized to JSON format.
+
+        Raises:
+            pika.exceptions.AMQPError: If there is an error during queue declaration, binding, or publishing.
+        &#34;&#34;&#34;
+        routing_key = f&#39;_{queue_name}&#39;
+        self.channel.queue_declare(queue=routing_key)
+        self.channel.queue_bind(exchange=self.ALERT_EXCHANGE_NAME, queue=routing_key, routing_key=routing_key)
+        self.channel.basic_publish(exchange=self.ALERT_EXCHANGE_NAME, routing_key=routing_key, body=json.dumps(alert_data))
+
+    def publish_to_supabase(self, alert_data) -&gt; None:
+        &#34;&#34;&#34;
+        Publishes alert data to the Supabase table.
+
+        Args:
+            alert_data (dict): A dictionary containing the alert data to be published.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        try:
+            response = self.supabase.table(&#39;fault_status&#39;).insert(alert_data).execute()
+        except Exception as e:
+            logging.error(f&#34; [!] Error publishing to Supabase: {e}&#34;)
+            return
+
+    def publish_alert(self,  queue_name, device_id, did, fault_type, message, timestamp) -&gt; None:
+        &#34;&#34;&#34;
+        Publishes an alert to RabbitMQ and Supabase.
+
+        This method sends an alert message containing fault details to a specified
+        RabbitMQ queue and also stores the alert data in Supabase for further processing
+        or record-keeping.
+
+        Args:
+            queue_name (str): The name of the RabbitMQ queue to publish the alert to.
+            device_id (str): The unique identifier of the device where the fault occurred.
+            did (str): The unique identifier for the detection instance.
+            fault_type (str): The type of fault detected (e.g., &#34;temperature_fault&#34;).
+            message (str): A descriptive message providing details about the fault.
+            timestamp (str): The timestamp when the fault was detected.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        alert_data = {
+            &#39;device_id&#39;: device_id,
+            &#39;fault_type&#39;: fault_type,
+            &#39;status&#39;: &#39;open&#39;,
+            &#39;message&#39;: message,
+            &#39;detected_at&#39;: timestamp,
+            &#39;did&#39;: did,
+        }
+        self.publish_to_rabbitmq(queue_name, alert_data)
+        self.publish_to_supabase(alert_data)</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Methods</h3>
+<dl>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.detect_faults"><code class="name flex">
+<span>def <span class="ident">detect_faults</span></span>(<span>self, sensor_data, queue_name) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def detect_faults(self, sensor_data, queue_name) -&gt; None:
+    &#34;&#34;&#34;
+    Detects faults in sensor data and publishes alerts if thresholds are exceeded.
+    Args:
+        sensor_data (dict): A dictionary containing sensor data. Expected keys include:
+            - &#39;id&#39; (str): The unique identifier for the data.
+            - &#39;device_id&#39; (str): The unique identifier for the device.
+            - &#39;sensor_type&#39; (str): The type of sensor (e.g., &#39;temperature&#39;, &#39;humidity&#39;, &#39;co2&#39;, &#39;power_meter&#39;, etc.).
+            - &#39;datetime&#39; (str): The timestamp of the sensor data in ISO 8601 format.
+            - Additional keys depending on the sensor type (e.g., &#39;temperature&#39;, &#39;humidity&#39;, &#39;co2&#39;, &#39;power_meter&#39;, &#39;occupancy&#39;).
+        queue_name (str): The name of the queue to which alerts should be published.
+    Returns:
+        None
+    Behavior:
+        - For &#39;temperature&#39;, &#39;humidity&#39;, and &#39;co2&#39; sensors:
+            - Checks if the values exceed predefined thresholds for indoor air quality (IAQ).
+            - Publishes alerts for high or low temperature, humidity, or high CO2 levels.
+            - Processes and inserts the sensor data, marking whether an IAQ fault was detected.
+        - For &#39;power_meter&#39; sensors:
+            - Detects power spikes based on a predefined threshold.
+            - Publishes alerts for power spikes.
+            - Processes and inserts the sensor data, marking whether a power fault was detected.
+        - For &#39;online_status&#39;, &#39;occupancy_status&#39;, and &#39;sensitivity&#39; sensors:
+            - Tracks room occupancy states and timestamps.
+            - Detects if a room has been marked as occupied for too long, indicating a potential sensor issue.
+            - Publishes alerts for stuck occupancy states.
+            - Processes and inserts the sensor data, marking whether an occupancy fault was detected.
+        - Logs warnings if incomplete sensor data is received.
+    &#34;&#34;&#34;
+    did = sensor_data.get(&#39;id&#39;)
+    device_id = sensor_data.get(&#39;device_id&#39;)
+    sensor_type = sensor_data.get(&#39;sensor_type&#39;)
+    timestamp = sensor_data.get(&#39;datetime&#39;)
+
+    if not all([device_id, timestamp]):
+        logging.warning(&#34; [!] Incomplete sensor data received.&#34;)
+        return
+
+    if sensor_type in [&#39;temperature&#39;, &#39;humidity&#39;, &#39;co2&#39;]:
+        iaq_fault = False
+        temperature = sensor_data.get(&#39;temperature&#39;)
+        humidity = sensor_data.get(&#39;humidity&#39;)
+        co2 = sensor_data.get(&#39;co2&#39;)
+
+        if temperature is not None:
+            if temperature &gt; self.fault_thresholds[&#39;iaq&#39;][&#39;temperature_high&#39;]:
+                self.publish_alert(queue_name, device_id, did, &#39;temperature_high&#39;, f&#39;Temperature {temperature}°C exceeds threshold {self.fault_thresholds[&#34;iaq&#34;][&#34;temperature_high&#34;]}°C&#39;, timestamp)
+            elif temperature &lt; self.fault_thresholds[&#39;iaq&#39;][&#39;temperature_low&#39;]:
+                self.publish_alert(queue_name, device_id, did, &#39;temperature_low&#39;, f&#39;Temperature {temperature}°C is below threshold {self.fault_thresholds[&#34;iaq&#34;][&#34;temperature_low&#34;]}°C&#39;, timestamp)
+        if humidity is not None:
+            if humidity &gt; self.fault_thresholds[&#39;iaq&#39;][&#39;humidity_high&#39;]:
+                self.publish_alert(queue_name, device_id, did, &#39;humidity_high&#39;, f&#39;Humidity {humidity}% exceeds threshold {self.fault_thresholds[&#34;iaq&#34;][&#34;humidity_high&#34;]}%&#39;, timestamp)
+            elif humidity &lt; self.fault_thresholds[&#39;iaq&#39;][&#39;humidity_low&#39;]:
+                self.publish_alert(queue_name, device_id, did, &#39;humidity_low&#39;, f&#39;Humidity {humidity}% is below threshold {self.fault_thresholds[&#34;iaq&#34;][&#34;humidity_low&#34;]}%&#39;, timestamp)
+        if co2 is not None:
+            if co2 &gt; self.fault_thresholds[&#39;iaq&#39;][&#39;co2_high&#39;]:
+                self.publish_alert(queue_name, device_id, did, &#39;co2_high&#39;, f&#39;CO2 level {co2} ppm exceeds threshold {self.fault_thresholds[&#34;iaq&#34;][&#34;co2_high&#34;]} ppm&#39;, timestamp)
+        self.process_and_insert_data(sensor_data)
+
+    elif sensor_type == &#39;power_meter&#39;:
+        power_meter = sensor_data.get(&#39;power_meter&#39;)
+        if power_meter is not None:
+            # Simple power spike detection (can be enhanced with moving averages etc.)
+            if power_meter &gt; self.fault_thresholds[&#39;power&#39;][&#39;power_spike_threshold&#39;]:
+                logging.info(f&#34;👾💥 Power spike detected: {power_meter} kW on device {device_id}&#34;)
+                self.publish_alert(queue_name, device_id, did, &#39;power_spike&#39;, f&#39;Power consumption spiked to {power_meter} kW on device {device_id}&#39;, timestamp)
+        self.process_and_insert_data(sensor_data)
+
+    elif sensor_type in [&#39;online_status&#39;, &#39;occupancy_status&#39;, &#39;sensitivity&#39;]:
+        room_id = device_id.split(&#39;-&#39;)[2]
+        occupancy_state = sensor_data.get(&#39;occupancy&#39;)
+        if occupancy_state == &#39;occupied&#39;:
+            self.last_occupied[room_id] = datetime.strptime(timestamp, &#39;%Y-%m-%dT%H:%M:%S.%f&#39;)
+        elif occupancy_state == &#39;unoccupied&#39; and room_id in self.last_occupied:
+            del self.last_occupied[room_id] # Reset if unoccupied
+
+        # Detect if a room has been occupied for too long (potential sensor issue)
+        if room_id in self.last_occupied:
+            if (datetime.now() - self.last_occupied[room_id]).total_seconds() &gt; self.fault_thresholds[&#39;occupancy&#39;][&#39;stuck_occupied_timeout&#39;] * 3600:
+                self.publish_alert(queue_name, device_id, did, &#39;stuck_occupied&#39;, f&#39;Room has been occupied since {self.last_occupied[room_id]}&#39;, timestamp)
+        self.process_and_insert_data(sensor_data)</code></pre>
+</details>
+<div class="desc"><p>Detects faults in sensor data and publishes alerts if thresholds are exceeded.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>sensor_data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary containing sensor data. Expected keys include:
+- 'id' (str): The unique identifier for the data.
+- 'device_id' (str): The unique identifier for the device.
+- 'sensor_type' (str): The type of sensor (e.g., 'temperature', 'humidity', 'co2', 'power_meter', etc.).
+- 'datetime' (str): The timestamp of the sensor data in ISO 8601 format.
+- Additional keys depending on the sensor type (e.g., 'temperature', 'humidity', 'co2', 'power_meter', 'occupancy').</dd>
+<dt><strong><code>queue_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the queue to which alerts should be published.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None</p>
+<h2 id="behavior">Behavior</h2>
+<ul>
+<li>For 'temperature', 'humidity', and 'co2' sensors:<ul>
+<li>Checks if the values exceed predefined thresholds for indoor air quality (IAQ).</li>
+<li>Publishes alerts for high or low temperature, humidity, or high CO2 levels.</li>
+<li>Processes and inserts the sensor data, marking whether an IAQ fault was detected.</li>
+</ul>
+</li>
+<li>For 'power_meter' sensors:<ul>
+<li>Detects power spikes based on a predefined threshold.</li>
+<li>Publishes alerts for power spikes.</li>
+<li>Processes and inserts the sensor data, marking whether a power fault was detected.</li>
+</ul>
+</li>
+<li>For 'online_status', 'occupancy_status', and 'sensitivity' sensors:<ul>
+<li>Tracks room occupancy states and timestamps.</li>
+<li>Detects if a room has been marked as occupied for too long, indicating a potential sensor issue.</li>
+<li>Publishes alerts for stuck occupancy states.</li>
+<li>Processes and inserts the sensor data, marking whether an occupancy fault was detected.</li>
+</ul>
+</li>
+<li>Logs warnings if incomplete sensor data is received.</li>
+</ul></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.get_default_thresholds"><code class="name flex">
+<span>def <span class="ident">get_default_thresholds</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_default_thresholds(self) -&gt; dict:
+    &#34;&#34;&#34;Retrieve the default thresholds.&#34;&#34;&#34;
+    return {
+        &#39;iaq&#39;: {
+            &#39;temperature_low&#39;: 18,
+            &#39;temperature_high&#39;: 26,
+            &#39;humidity_low&#39;: 30,
+            &#39;humidity_high&#39;: 60,
+            &#39;co2_low&#39;: 400,
+            &#39;co2_high&#39;: 1000
+        },
+        &#39;power&#39;: {
+            &#39;power_spike_threshold&#39;: 1
+        },
+        &#39;occupancy&#39;: {
+            &#39;stuck_occupied_timeout&#39;: 24
+        }
+    }</code></pre>
+</details>
+<div class="desc"><p>Retrieve the default thresholds.</p></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.get_initial_thresholds"><code class="name flex">
+<span>def <span class="ident">get_initial_thresholds</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_initial_thresholds(self) -&gt; dict:
+    &#34;&#34;&#34;
+    Retrieve initial fault detection thresholds from Supabase or use defaults.
+    &#34;&#34;&#34;
+    response = self.supabase.table(&#39;fault_thresholds&#39;).select(&#39;*&#39;).execute()
+    if response.data:
+        logging.info(&#34;👾 Read thresholds from Supabase&#34;)
+        return self.process_threshold_data(response.data[0])
+    else:
+        return self.get_default_thresholds()</code></pre>
+</details>
+<div class="desc"><p>Retrieve initial fault detection thresholds from Supabase or use defaults.</p></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.get_queues_for_exchange"><code class="name flex">
+<span>def <span class="ident">get_queues_for_exchange</span></span>(<span>self) ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_queues_for_exchange(self) -&gt; list:
+    &#34;&#34;&#34;
+    Retrieve the list of queue names bound to a specific RabbitMQ exchange.
+    &#34;&#34;&#34;
+    rabbitmq_host = config(&#39;RABBITMQ_HOST&#39;)
+    url = f&#39;http://{rabbitmq_host}:15672/api/bindings&#39;
+    response = requests.get(url, auth=HTTPBasicAuth(&#39;guest&#39;, &#39;guest&#39;))
+    
+    if response.status_code == 200:
+        bindings = response.json()
+        queues = [
+            binding[&#39;destination&#39;]
+            for binding in bindings
+            if binding[&#39;source&#39;] == config(&#39;EXCHANGE_NAME&#39;) and binding[&#39;destination_type&#39;] == &#39;queue&#39;
+        ]
+        return queues
+    else:
+        logging.error(f&#34;Failed to fetch bindings: {response.status_code}&#34;)
+        return []</code></pre>
+</details>
+<div class="desc"><p>Retrieve the list of queue names bound to a specific RabbitMQ exchange.</p></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.init_db_connection"><code class="name flex">
+<span>def <span class="ident">init_db_connection</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_db_connection(self):
+    self.conn = psycopg2.connect(
+        dbname=self.DB_NAME,
+        user=self.DB_USER,
+        password=self.DB_PASSWORD,
+        host=self.DB_HOST,
+        port=self.DB_PORT
+    )
+    self.cursor = self.conn.cursor()
+
+    # Check if table named raw_data exists
+    self.cursor.execute(&#34;SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = &#39;raw_data&#39;)&#34;)
+    if self.cursor.fetchone()[0]:
+        logging.info(&#34;👾 TimescaleDB table &#39;raw_data&#39; exists.&#34;)
+    else:
+        logging.info(&#34;👾 TimescaleDB table &#39;raw_data&#39; does not exist. Creating it...&#34;)
+        self.cursor.execute(&#34;&#34;&#34;
+            CREATE TABLE raw_data (
+                id SERIAL PRIMARY KEY,
+                timestamp BIGINT NOT NULL,
+                datetime TIMESTAMP NOT NULL,
+                device_id VARCHAR(50) NOT NULL,
+                datapoint VARCHAR(50) NOT NULL,
+                value TEXT NOT NULL,
+                did INTEGER
+            )
+        &#34;&#34;&#34;)
+        self.conn.commit()
+        logging.info(&#34;👾 TimescaleDB table &#39;raw_data&#39; created.&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.init_rabbitmq_connection"><code class="name flex">
+<span>def <span class="ident">init_rabbitmq_connection</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_rabbitmq_connection(self) -&gt; None:
+    &#34;&#34;&#34;
+    Initializes the RabbitMQ connection and sets up the exchange channel.
+    &#34;&#34;&#34;
+    # RabbitMQ connection
+    self.connection = pika.BlockingConnection(pika.ConnectionParameters(self.RABBITMQ_HOST))
+    self.channel = self.connection.channel()
+    self.exchange = self.channel.exchange_declare(exchange=self.ALERT_EXCHANGE_NAME, exchange_type=&#39;topic&#39;)</code></pre>
+</details>
+<div class="desc"><p>Initializes the RabbitMQ connection and sets up the exchange channel.</p></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.insert_row_data"><code class="name flex">
+<span>def <span class="ident">insert_row_data</span></span>(<span>self, data) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def insert_row_data(self, data) -&gt; None:
+    &#34;&#34;&#34;
+    Inserts processed row data into the raw_data database table.
+    &#34;&#34;&#34;
+    insert_queries = []
+    skipped_keys = [&#39;datetime&#39;, &#39;device_id&#39;, &#39;id&#39;, &#39;sensor_type&#39;]
+    timestamp = data[&#34;datetime&#34;]
+    
+    for key in data.keys():
+        if key in skipped_keys:
+            continue
+        insert_queries.append((
+            int(datetime.fromisoformat(timestamp).timestamp()),
+            datetime.fromisoformat(timestamp),
+            data[&#34;device_id&#34;],
+            key,
+            str(data[key]),
+            data[&#34;id&#34;]
+        ))
+
+    self.cursor.executemany(
+        &#34;&#34;&#34;
+        INSERT INTO raw_data (timestamp, datetime, device_id, datapoint, value, did)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        &#34;&#34;&#34;,
+        insert_queries
+    )
+    self.conn.commit()</code></pre>
+</details>
+<div class="desc"><p>Inserts processed row data into the raw_data database table.</p></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.process_and_insert_data"><code class="name flex">
+<span>def <span class="ident">process_and_insert_data</span></span>(<span>self, data: Dict[str, Any]) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_and_insert_data(self, data: Dict[str, Any]) -&gt; None:
+    &#34;&#34;&#34;
+    Processes incoming data and inserts it into the database if valid.
+    &#34;&#34;&#34;
+    if not data.get(&#34;datetime&#34;):
+        logging.info(&#34; [!] No timestamp found in data.&#34;)
+        return
+    try:
+        self.insert_row_data(data)
+    except (TypeError, ValueError):
+        logging.error(&#34; [!] Invalid IAQ sensor data received. Non-numeric values detected.&#34;)
+        return
+    except Exception as e:
+        logging.error(f&#34; [!] Error inserting data into TimescaleDB: {e}&#34;)
+        return</code></pre>
+</details>
+<div class="desc"><p>Processes incoming data and inserts it into the database if valid.</p></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.process_threshold_data"><code class="name flex">
+<span>def <span class="ident">process_threshold_data</span></span>(<span>self, record: dict) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_threshold_data(self, record: dict) -&gt; dict:
+    &#34;&#34;&#34;
+    Processes threshold data from a record dictionary into a structured format.
+    &#34;&#34;&#34;
+    return {
+        &#39;iaq&#39;: {
+            &#39;temperature_low&#39;: record.get(&#39;temperature_min&#39;),
+            &#39;temperature_high&#39;: record.get(&#39;temperature_max&#39;),
+            &#39;humidity_low&#39;: record.get(&#39;humidity_min&#39;),
+            &#39;humidity_high&#39;: record.get(&#39;humidity_max&#39;),
+            &#39;co2_low&#39;: record.get(&#39;co2_min&#39;),
+            &#39;co2_high&#39;: record.get(&#39;co2_max&#39;)
+        },
+        &#39;power&#39;: {
+            &#39;power_spike_threshold&#39;: record.get(&#39;power_kw_max&#39;)
+        },
+        &#39;occupancy&#39;: {
+            &#39;stuck_occupied_timeout&#39;: record.get(&#39;sensitivity_max&#39;)
+        }
+    }</code></pre>
+</details>
+<div class="desc"><p>Processes threshold data from a record dictionary into a structured format.</p></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.publish_alert"><code class="name flex">
+<span>def <span class="ident">publish_alert</span></span>(<span>self, queue_name, device_id, did, fault_type, message, timestamp) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def publish_alert(self,  queue_name, device_id, did, fault_type, message, timestamp) -&gt; None:
+    &#34;&#34;&#34;
+    Publishes an alert to RabbitMQ and Supabase.
+
+    This method sends an alert message containing fault details to a specified
+    RabbitMQ queue and also stores the alert data in Supabase for further processing
+    or record-keeping.
+
+    Args:
+        queue_name (str): The name of the RabbitMQ queue to publish the alert to.
+        device_id (str): The unique identifier of the device where the fault occurred.
+        did (str): The unique identifier for the detection instance.
+        fault_type (str): The type of fault detected (e.g., &#34;temperature_fault&#34;).
+        message (str): A descriptive message providing details about the fault.
+        timestamp (str): The timestamp when the fault was detected.
+
+    Returns:
+        None
+    &#34;&#34;&#34;
+    alert_data = {
+        &#39;device_id&#39;: device_id,
+        &#39;fault_type&#39;: fault_type,
+        &#39;status&#39;: &#39;open&#39;,
+        &#39;message&#39;: message,
+        &#39;detected_at&#39;: timestamp,
+        &#39;did&#39;: did,
+    }
+    self.publish_to_rabbitmq(queue_name, alert_data)
+    self.publish_to_supabase(alert_data)</code></pre>
+</details>
+<div class="desc"><p>Publishes an alert to RabbitMQ and Supabase.</p>
+<p>This method sends an alert message containing fault details to a specified
+RabbitMQ queue and also stores the alert data in Supabase for further processing
+or record-keeping.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>queue_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the RabbitMQ queue to publish the alert to.</dd>
+<dt><strong><code>device_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>The unique identifier of the device where the fault occurred.</dd>
+<dt><strong><code>did</code></strong> :&ensp;<code>str</code></dt>
+<dd>The unique identifier for the detection instance.</dd>
+<dt><strong><code>fault_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>The type of fault detected (e.g., "temperature_fault").</dd>
+<dt><strong><code>message</code></strong> :&ensp;<code>str</code></dt>
+<dd>A descriptive message providing details about the fault.</dd>
+<dt><strong><code>timestamp</code></strong> :&ensp;<code>str</code></dt>
+<dd>The timestamp when the fault was detected.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.publish_to_rabbitmq"><code class="name flex">
+<span>def <span class="ident">publish_to_rabbitmq</span></span>(<span>self, queue_name, alert_data) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def publish_to_rabbitmq(self, queue_name, alert_data) -&gt; None:
+    &#34;&#34;&#34;
+    Publishes alert data to a RabbitMQ queue.
+
+    This method declares a queue with the specified queue name, binds it to the
+    alert exchange using the routing key, and publishes the alert data to the queue.
+
+    Args:
+        queue_name (str): The name of the queue to publish the alert data to.
+        alert_data (dict): The alert data to be published. It will be serialized to JSON format.
+
+    Raises:
+        pika.exceptions.AMQPError: If there is an error during queue declaration, binding, or publishing.
+    &#34;&#34;&#34;
+    routing_key = f&#39;_{queue_name}&#39;
+    self.channel.queue_declare(queue=routing_key)
+    self.channel.queue_bind(exchange=self.ALERT_EXCHANGE_NAME, queue=routing_key, routing_key=routing_key)
+    self.channel.basic_publish(exchange=self.ALERT_EXCHANGE_NAME, routing_key=routing_key, body=json.dumps(alert_data))</code></pre>
+</details>
+<div class="desc"><p>Publishes alert data to a RabbitMQ queue.</p>
+<p>This method declares a queue with the specified queue name, binds it to the
+alert exchange using the routing key, and publishes the alert data to the queue.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>queue_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the queue to publish the alert data to.</dd>
+<dt><strong><code>alert_data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The alert data to be published. It will be serialized to JSON format.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>pika.exceptions.AMQPError</code></dt>
+<dd>If there is an error during queue declaration, binding, or publishing.</dd>
+</dl></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.publish_to_supabase"><code class="name flex">
+<span>def <span class="ident">publish_to_supabase</span></span>(<span>self, alert_data) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def publish_to_supabase(self, alert_data) -&gt; None:
+    &#34;&#34;&#34;
+    Publishes alert data to the Supabase table.
+
+    Args:
+        alert_data (dict): A dictionary containing the alert data to be published.
+
+    Returns:
+        None
+    &#34;&#34;&#34;
+    try:
+        response = self.supabase.table(&#39;fault_status&#39;).insert(alert_data).execute()
+    except Exception as e:
+        logging.error(f&#34; [!] Error publishing to Supabase: {e}&#34;)
+        return</code></pre>
+</details>
+<div class="desc"><p>Publishes alert data to the Supabase table.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>alert_data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary containing the alert data to be published.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.run_fault_detection"><code class="name flex">
+<span>def <span class="ident">run_fault_detection</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run_fault_detection(self) -&gt; None:
+    &#34;&#34;&#34;
+    Listens for sensor data messages and performs fault detection.
+    &#34;&#34;&#34;
+    channel = self.connection.channel()
+    channel.exchange_declare(exchange=self.EXCHANGE_NAME, exchange_type=&#39;topic&#39;, durable=True)
+
+    result = channel.queue_declare(queue=&#39;&#39;, durable=True, exclusive=True)
+    queue_name = result.method.queue
+    channel.queue_bind(exchange=self.EXCHANGE_NAME, queue=queue_name, routing_key=&#39;#&#39;)
+
+    logging.info(&#34;👾🐇 Waiting for sensor data...&#34;)
+
+    def callback(ch, method, properties, body):
+        try:
+            data = json.loads(body.decode())
+            self.detect_faults(data, method.routing_key)
+        except Exception as e:
+            logging.error(&#34;[!] Error processing message:&#34;, e)
+    channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
+    channel.start_consuming()</code></pre>
+</details>
+<div class="desc"><p>Listens for sensor data messages and performs fault detection.</p></div>
+</dd>
+<dt id="agent.agent_fault_detection.FaultDetectionAgent.setup_realtime_subscription"><code class="name flex">
+<span>async def <span class="ident">setup_realtime_subscription</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">async def setup_realtime_subscription(self) -&gt; None:
+    &#34;&#34;&#34;
+    Sets up a realtime subscription to monitor and handle table changes.
+    &#34;&#34;&#34;
+    async_client = await create_async_client(config(&#39;SUPABASE_URL&#39;), config(&#39;SUPABASE_API_KEY&#39;))
+
+    def handle_change(payload):
+        logging.info(&#34;👾 Threshold updated from somewhere else!&#34;)
+        if payload[&#39;event_type&#39;] in (&#39;INSERT&#39;, &#39;UPDATE&#39;):
+            self.fault_thresholds = self.process_threshold_data(payload[&#39;new&#39;])
+        elif payload[&#39;event_type&#39;] == &#39;DELETE&#39;:
+            self.fault_thresholds = self.get_default_thresholds()
+
+    channel = await async_client.channel(&#39;threshold_changes&#39;)\
+        .on_postgres_changes(
+            event=&#39;UPDATE&#39;,
+            schema=&#39;public&#39;,
+            table=&#39;fault_thresholds&#39;,
+            callback=handle_change
+        ).subscribe()
+    logging.info(&#34;👾[✓] Realtime subscription active for threshold values.&#34;, async_client.realtime.is_connected)
+    while True:
+        await asyncio.sleep(3600)</code></pre>
+</details>
+<div class="desc"><p>Sets up a realtime subscription to monitor and handle table changes.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="agent" href="index.html">agent</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="agent.agent_fault_detection.main" href="#agent.agent_fault_detection.main">main</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="agent.agent_fault_detection.FaultDetectionAgent" href="#agent.agent_fault_detection.FaultDetectionAgent">FaultDetectionAgent</a></code></h4>
+<ul class="">
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.detect_faults" href="#agent.agent_fault_detection.FaultDetectionAgent.detect_faults">detect_faults</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.get_default_thresholds" href="#agent.agent_fault_detection.FaultDetectionAgent.get_default_thresholds">get_default_thresholds</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.get_initial_thresholds" href="#agent.agent_fault_detection.FaultDetectionAgent.get_initial_thresholds">get_initial_thresholds</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.get_queues_for_exchange" href="#agent.agent_fault_detection.FaultDetectionAgent.get_queues_for_exchange">get_queues_for_exchange</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.init_db_connection" href="#agent.agent_fault_detection.FaultDetectionAgent.init_db_connection">init_db_connection</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.init_rabbitmq_connection" href="#agent.agent_fault_detection.FaultDetectionAgent.init_rabbitmq_connection">init_rabbitmq_connection</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.insert_row_data" href="#agent.agent_fault_detection.FaultDetectionAgent.insert_row_data">insert_row_data</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.process_and_insert_data" href="#agent.agent_fault_detection.FaultDetectionAgent.process_and_insert_data">process_and_insert_data</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.process_threshold_data" href="#agent.agent_fault_detection.FaultDetectionAgent.process_threshold_data">process_threshold_data</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.publish_alert" href="#agent.agent_fault_detection.FaultDetectionAgent.publish_alert">publish_alert</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.publish_to_rabbitmq" href="#agent.agent_fault_detection.FaultDetectionAgent.publish_to_rabbitmq">publish_to_rabbitmq</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.publish_to_supabase" href="#agent.agent_fault_detection.FaultDetectionAgent.publish_to_supabase">publish_to_supabase</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.run_fault_detection" href="#agent.agent_fault_detection.FaultDetectionAgent.run_fault_detection">run_fault_detection</a></code></li>
+<li><code><a title="agent.agent_fault_detection.FaultDetectionAgent.setup_realtime_subscription" href="#agent.agent_fault_detection.FaultDetectionAgent.setup_realtime_subscription">setup_realtime_subscription</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
