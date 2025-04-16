@@ -124,7 +124,6 @@ class IAQSensorSimulator:
             return []
 
     def generate_iaq_data_advanced(self, device_id, did, sensor_type,
-                                   start_time_str="2024-12-27 00:00:00",
                                    temperature_base=27,
                                    temperature_amplitude=0.5,
                                    humidity_base=50,
@@ -161,8 +160,7 @@ class IAQSensorSimulator:
                 - humidity (float): The simulated humidity value in percentage.
                 - co2 (float): The simulated CO2 level in ppm.
         """
-        start_time = datetime.strptime(start_time_str, "%Y-%m-%d %H:%M:%S")
-        current_time = start_time + self.interval_total_seconds * timedelta(seconds=1)
+        current_time = self.current_time + self.interval_total_seconds * timedelta(seconds=1)
         t_sec = current_time.second
         co2_spike_value = 0
         co2_spike_decay = 0
@@ -207,8 +205,7 @@ class IAQSensorSimulator:
                     ('0%', '25%', '50%', '75%', or '100%').
                 - occupancy_status (str): The occupancy status of the device, either 'occupied' or 'unoccupied'.
         """
-        current_time = datetime.strptime("2024-12-27 00:00:00", "%Y-%m-%d %H:%M:%S")
-        current_time = current_time + self.interval_total_seconds * timedelta(seconds=1)
+        current_time = self.current_time + self.interval_total_seconds * timedelta(seconds=1)
         if 0 <= current_time.hour < 6 or 12 <= current_time.hour < 18:
             occupancy_status = 'unoccupied'
             occupancy_chance = random.random()
@@ -293,9 +290,6 @@ class IAQSensorSimulator:
             - The `locals()` function is used to dynamically access the generated 
               sensor data based on the `sensor_type`.
         """
-        # current_time = datetime.strptime("2024-12-27 00:00:00", "%Y-%m-%d %H:%M:%S")
-        current_time = current_time + self.interval_total_seconds * timedelta(seconds=1)
-
         # NOTE: These variables are used in locals() to access the generated data
         temperature, humidity, co2 = self.generate_iaq_data_advanced(device_id, did, sensor_type)
         online_status, sensitivity, occupancy_status = self.generate_occupancy_data_advanced(device_id, did, sensor_type)
