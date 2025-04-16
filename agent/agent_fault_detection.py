@@ -317,7 +317,6 @@ class FaultDetectionAgent:
             if power_meter is not None:
                 # Simple power spike detection (can be enhanced with moving averages etc.)
                 if power_meter > self.fault_thresholds['power']['power_spike_threshold']:
-                    logging.info(f"👾💥 Power spike detected: {power_meter} kW on device {device_id}")
                     self.publish_alert(queue_name, device_id, did, 'power_spike', f'Power consumption spiked to {power_meter} kW on device {device_id}', timestamp)
             self.process_and_insert_data(sensor_data)
 
