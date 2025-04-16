@@ -2,7 +2,7 @@ import asyncio
 from agent import agent_simulation, agent_fault_detection
 import time
 import socket
-from pydecouple import config
+from decouple import config
 
 host = config('RABBITMQ_HOST')
 port = config('RABBITMQ_PORT')
