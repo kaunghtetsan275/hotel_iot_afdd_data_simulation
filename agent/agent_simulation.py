@@ -58,6 +58,7 @@ class IAQSensorSimulator:
         self.EXCHANGE_NAME = config('EXCHANGE_NAME', default='hotel_iot')
         self.interval_seconds = 5
         self.interval_total_seconds = self.interval_seconds
+        self.current_time = datetime.now()
 
         # RabbitMQ setup
         self.connection = None
@@ -293,7 +294,6 @@ class IAQSensorSimulator:
               sensor data based on the `sensor_type`.
         """
         # current_time = datetime.strptime("2024-12-27 00:00:00", "%Y-%m-%d %H:%M:%S")
-        current_time = datetime.now() # .strftime("%Y-%m-%d %H:%M:%S")
         current_time = current_time + self.interval_total_seconds * timedelta(seconds=1)
 
         # NOTE: These variables are used in locals() to access the generated data
@@ -302,7 +302,7 @@ class IAQSensorSimulator:
         power_meter = self.generate_power_data_advanced(device_id, did, sensor_type)
         if sensor_type == 'power_meter':
             return {
-                "datetime": current_time.isoformat(),
+                "datetime": self.current_time.isoformat(),
                 'id': did,
                 "device_id": device_id,
                 "power_meter": round(power_meter, 2),
@@ -310,7 +310,7 @@ class IAQSensorSimulator:
             }
         elif sensor_type in ['temperature', 'humidity', 'co2']:
             return {
-                "datetime": current_time.isoformat(),
+                "datetime": self.current_time.isoformat(),
                 "id": did,
                 "device_id": device_id,
                 sensor_type: round(locals()[sensor_type], 2),
@@ -318,7 +318,7 @@ class IAQSensorSimulator:
             }
         elif sensor_type in ['online_status', 'occupancy_status', 'sensitivity']:
             return {
-                "datetime": current_time.isoformat(),
+                "datetime": self.current_time.isoformat(),
                 "id": did,
                 "device_id": device_id,
                 sensor_type: locals()[sensor_type],
