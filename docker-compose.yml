@@ -1,39 +1,4 @@
 services:
-  hiafdd_backend:
-      container_name: hiafdd_backend_container
-      build:
-        context: https://github.com/kaunghtetsan275/hotel_iot_afdd_backend.git
-        dockerfile: Dockerfile
-      command: sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn afdd_backend.wsgi:application --bind 0.0.0.0:8000"
-      ports:
-        - "8001:8000"
-      env_file:
-        - .env
-      environment:
-        - ENVIRONMENT=docker
-        - DEBUG=False
-      depends_on:
-        - rabbitmq-afdd
-        - timescaledb-afdd
-      restart: unless-stopped
-  
-  hiafdd_frontend:
-    container_name: hiafdd_frontend_container
-    build:
-      context: https://github.com/kaunghtetsan275/hotel_iot_afdd_frontend.git
-      dockerfile: Dockerfile
-      args:
-        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
-        VITE_SUPABASE_KEY: ${VITE_SUPABASE_KEY}
-    ports:
-      - "80:80"
-    env_file:
-      - .env
-    environment:
-      - DEBUG=False
-    working_dir: /hiafdd_frontend
-    restart: unless-stopped
-
   simulation:
     container_name: simulation_agents
     build:
@@ -55,8 +20,8 @@ services:
     container_name: rabbitmq-afdd
     hostname: rabbitmq-host
     ports:
-      - "5672:5672"   # AMQP protocol port
-      - "15672:15672" # RabbitMQ Management Dashboard
+      - "5672:5672" 
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
