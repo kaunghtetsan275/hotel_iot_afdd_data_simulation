@@ -486,6 +486,7 @@ class IAQSensorSimulator:
                 iaq_data_list = list(filter(None, iaq_data_list))
                 self.publish_to_supabase(iaq_data_list)
                 await self.publish_batch(iaq_data_list)
+                self.current_time += self.interval_seconds
                 await asyncio.sleep(self.interval_seconds)
 
         except KeyboardInterrupt:
