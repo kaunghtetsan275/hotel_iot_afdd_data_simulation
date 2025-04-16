@@ -123,7 +123,7 @@ class IAQSensorSimulator:
             logging.info("No devices found in Supabase.")
             return []
 
-    def generate_iaq_data_advanced(self, device_id, did, sensor_type,
+    def generate_iaq_data_advanced(self,
                                    temperature_base=27,
                                    temperature_amplitude=0.5,
                                    humidity_base=50,
@@ -188,7 +188,7 @@ class IAQSensorSimulator:
 
         return temperature, humidity, co2
 
-    def generate_occupancy_data_advanced(self, device_id, did, sensor_type) -> tuple:
+    def generate_occupancy_data_advanced(self) -> tuple:
         """
         Generates advanced occupancy data for a given device.
         This method simulates the occupancy status, online status, and sensitivity 
@@ -229,7 +229,7 @@ class IAQSensorSimulator:
         
         return online_status, sensitivity, occupancy_status
 
-    def generate_power_data_advanced(self, device_id, did, sensor_type) -> float:
+    def generate_power_data_advanced(self) -> float:
         """
         Generates simulated power consumption data for a device with advanced features 
         such as random noise, base power, and occasional power spikes.
@@ -291,9 +291,9 @@ class IAQSensorSimulator:
               sensor data based on the `sensor_type`.
         """
         # NOTE: These variables are used in locals() to access the generated data
-        temperature, humidity, co2 = self.generate_iaq_data_advanced(device_id, did, sensor_type)
-        online_status, sensitivity, occupancy_status = self.generate_occupancy_data_advanced(device_id, did, sensor_type)
-        power_meter = self.generate_power_data_advanced(device_id, did, sensor_type)
+        temperature, humidity, co2 = self.generate_iaq_data_advanced()
+        online_status, sensitivity, occupancy_status = self.generate_occupancy_data_advanced()
+        power_meter = self.generate_power_data_advanced()
         if sensor_type == 'power_meter':
             return {
                 "datetime": self.current_time.isoformat(),
@@ -486,7 +486,7 @@ class IAQSensorSimulator:
                 iaq_data_list = list(filter(None, iaq_data_list))
                 self.publish_to_supabase(iaq_data_list)
                 await self.publish_batch(iaq_data_list)
-                self.current_time += self.interval_seconds
+                self.current_time += self.interval_seconds * timedelta(seconds=1)
                 await asyncio.sleep(self.interval_seconds)
 
         except KeyboardInterrupt:
