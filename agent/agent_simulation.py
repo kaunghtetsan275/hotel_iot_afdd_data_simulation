@@ -292,11 +292,12 @@ class IAQSensorSimulator:
             - The `locals()` function is used to dynamically access the generated 
               sensor data based on the `sensor_type`.
         """
-        current_time = datetime.strptime("2024-12-27 00:00:00", "%Y-%m-%d %H:%M:%S")
+        # current_time = datetime.strptime("2024-12-27 00:00:00", "%Y-%m-%d %H:%M:%S")
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         current_time = current_time + self.interval_total_seconds * timedelta(seconds=1)
 
         # NOTE: These variables are used in locals() to access the generated data
-        temperature, humidity, co2 = self.generate_iaq_data_advanced(device_id, did, sensor_type, start_time_str=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        temperature, humidity, co2 = self.generate_iaq_data_advanced(device_id, did, sensor_type)
         online_status, sensitivity, occupancy_status = self.generate_occupancy_data_advanced(device_id, did, sensor_type)
         power_meter = self.generate_power_data_advanced(device_id, did, sensor_type)
         if sensor_type == 'power_meter':
