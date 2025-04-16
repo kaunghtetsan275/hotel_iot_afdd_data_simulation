@@ -16,6 +16,19 @@ class FaultDetectionAgent:
     def __init__(self):
         # Configure logging
         logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+        # Silence Supabase Realtime logs
+        logging.getLogger("pika").setLevel(logging.WARNING)
+        logging.getLogger('realtime').setLevel(logging.WARNING)
+        logging.getLogger('realtime._async.client').setLevel(logging.WARNING)
+        logging.getLogger('realtime._async.channel').setLevel(logging.WARNING)
+        # Optionally, silence other related loggers
+        logging.getLogger('httpx').setLevel(logging.WARNING)
+        logging.getLogger('asyncio').setLevel(logging.WARNING)
+        logging.getLogger('phx_websocket').setLevel(logging.WARNING)
+        logging.getLogger('phoenix').setLevel(logging.WARNING)
+        logging.getLogger('websockets').setLevel(logging.WARNING)
+        
+
 
         # RabbitMQ connection parameters
         self.RABBITMQ_HOST = 'localhost' if config('ENVIRONMENT', default='local') == 'local' else config('RABBITMQ_HOST')
@@ -194,7 +207,7 @@ class FaultDetectionAgent:
                 table='fault_thresholds',
                 callback=handle_change
             ).subscribe()
-        logging.info("👾[✓] Realtime subscription active for threshold values.", async_client.realtime.is_connected)
+        logging.info(f"👾[✓] Realtime subscription active for threshold values. {async_client.realtime.is_connected}")
         while True:
             await asyncio.sleep(3600)
 
@@ -389,7 +402,7 @@ class FaultDetectionAgent:
 
 async def main():
     try:
-        logging.info()
+        logging.info("=========================================")
         logging.info("👾 Initializing Fault Detection Agent...")
         agent = FaultDetectionAgent()
         agent.init_db_connection()

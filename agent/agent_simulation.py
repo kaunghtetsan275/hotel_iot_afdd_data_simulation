@@ -464,6 +464,18 @@ class IAQSensorSimulator:
         or until interrupted.
         """
         logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+        # Silence Supabase Realtime logs
+        logging.getLogger("pika").setLevel(logging.WARNING)
+        logging.getLogger('realtime').setLevel(logging.WARNING)
+        logging.getLogger('realtime._async.client').setLevel(logging.WARNING)
+        logging.getLogger('realtime._async.channel').setLevel(logging.WARNING)
+        # Optionally, silence other related loggers
+        logging.getLogger('httpx').setLevel(logging.WARNING)
+        logging.getLogger('asyncio').setLevel(logging.WARNING)
+        logging.getLogger('phx_websocket').setLevel(logging.WARNING)
+        logging.getLogger('phoenix').setLevel(logging.WARNING)
+        logging.getLogger('websockets').setLevel(logging.WARNING)
+
         logging.info("🤖 IAQ Sensor Simulator started.")
         logging.info("🤖 RabbitMQ dashboard available at: http://localhost:15672")
         get_devices = self.get_devices_from_supabase()
