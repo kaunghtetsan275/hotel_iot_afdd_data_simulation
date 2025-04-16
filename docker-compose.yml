@@ -1,0 +1,89 @@
+services:
+  hiafdd_backend:
+      container_name: hiafdd_backend_container
+      build:
+        context: https://github.com/kaunghtetsan275/hotel_iot_afdd_backend.git
+        dockerfile: Dockerfile
+      command: sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn afdd_backend.wsgi:application --bind 0.0.0.0:8000"
+      ports:
+        - "8001:8000"
+      env_file:
+        - .env
+      environment:
+        - ENVIRONMENT=docker
+        - DEBUG=False
+      depends_on:
+        - rabbitmq-afdd
+        - timescaledb-afdd
+      restart: unless-stopped
+  
+  hiafdd_frontend:
+    container_name: hiafdd_frontend_container
+    build:
+      context: https://github.com/kaunghtetsan275/hotel_iot_afdd_frontend.git
+      dockerfile: Dockerfile
+      args:
+        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+        VITE_SUPABASE_KEY: ${VITE_SUPABASE_KEY}
+    ports:
+      - "80:80"
+    env_file:
+      - .env
+    environment:
+      - DEBUG=False
+    working_dir: /hiafdd_frontend
+    restart: unless-stopped
+
+  simulation:
+    container_name: simulation_agents
+    build:
+      context: https://github.com/kaunghtetsan275/hotel_iot_afdd_data_simulation.git
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - ENVIRONMENT=docker
+      - DEBUG=False
+    working_dir: /simulation
+    depends_on:
+      - rabbitmq-afdd
+      - timescaledb-afdd
+    restart: unless-stopped
+
+  rabbitmq-afdd:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-afdd
+    hostname: rabbitmq-host
+    ports:
+      - "5672:5672"   # AMQP protocol port
+      - "15672:15672" # RabbitMQ Management Dashboard
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  timescaledb-afdd:
+    image: timescale/timescaledb:latest-pg14
+    container_name: timescaledb-afdd
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: afdd
+    ports:
+      - "5432:5432"
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  timescaledb_data:
