@@ -27,11 +27,10 @@ class FaultDetectionAgent:
         logging.getLogger('phx_websocket').setLevel(logging.WARNING)
         logging.getLogger('phoenix').setLevel(logging.WARNING)
         logging.getLogger('websockets').setLevel(logging.WARNING)
-        
-
 
         # RabbitMQ connection parameters
-        self.RABBITMQ_HOST = 'localhost' if config('ENVIRONMENT', default='local') == 'local' else config('RABBITMQ_HOST')
+        self.RABBITMQ_URL = f"amqp://{config('RABBITMQ_USER')}:{config('RABBITMQ_PASSWORD')}@{config('RABBITMQ_HOST')}:{config('RABBITMQ_PORT')}/"
+        self.RABBITMQ_HOST = config('RABBITMQ_HOST')
         self.EXCHANGE_NAME = config('EXCHANGE_NAME', default='hotel_iot')
         self.ALERT_EXCHANGE_NAME = config('ALERT_EXCHANGE_NAME', default='fault_alerts')
 
@@ -48,7 +47,7 @@ class FaultDetectionAgent:
         self.DB_USER = config('TIMESCALEDB_USER')
         self.DB_PASSWORD = config('TIMESCALEDB_PASSWORD')
         self.DB_PORT = config('TIMESCALEDB_PORT', default='5432')
-        self.DB_HOST = config('TIMESCALEDB_HOST') if config('ENVIRONMENT', default='local') == 'docker' else 'localhost'
+        self.DB_HOST = config('TIMESCALEDB_HOST')
 
 
     def init_db_connection(self):

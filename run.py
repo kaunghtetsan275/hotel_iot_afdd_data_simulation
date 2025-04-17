@@ -6,14 +6,26 @@ from decouple import config
 
 host = config('RABBITMQ_HOST')
 port = config('RABBITMQ_PORT')
+db_host = config('TIMESCALEDB_HOST')
+db_port = config('TIMESCALEDB_PORT')
 
-print("Waiting for RabbitMQ to start...")
+print("Waiting for RabbitMQ and TimescaleDB to start...")
+print("RabbitMQ host: ", host, " port: ", port)
+print("TimescaleDB host: ", db_host, " port: ", db_port)
 while True:
     try:
+        with socket.create_connection((db_host, db_port), timeout=5):
+            print("TimescaleDB is up ")
+    except ConnectionRefusedError as err:
+        print("Shimata, we got : ", err.ConnectionRefusedError, " error.... eeeehhh.. Naze??")
+        print("TimescaleDB is unavailable - retrying in 5 seconds...")
+        time.sleep(5)
+    try:
         with socket.create_connection((host, port), timeout=5):
-            print("RabbitMQ is up - starting simulations...")
+            print("RabbitMQ is up ")
             break
-    except (socket.timeout, ConnectionRefusedError, OSError):
+    except ConnectionRefusedError as err:
+        print("Shimata, we got : ", err.ConnectionRefusedError, " error.... eeeehhh.. Naze??")
         print("RabbitMQ is unavailable - retrying in 5 seconds...")
         time.sleep(5)
 
