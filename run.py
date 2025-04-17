@@ -17,7 +17,7 @@ while True:
         with socket.create_connection((db_host, db_port), timeout=5):
             print("TimescaleDB is up ")
     except ConnectionRefusedError as err:
-        print("Shimata, we got : ", err.ConnectionRefusedError, " error.... eeeehhh.. Naze??")
+        print("Shimata, we got : ", err , " error.... eeeehhh.. Naze??")
         print("TimescaleDB is unavailable - retrying in 5 seconds...")
         time.sleep(5)
     try:
@@ -25,7 +25,7 @@ while True:
             print("RabbitMQ is up ")
             break
     except ConnectionRefusedError as err:
-        print("Shimata, we got : ", err.ConnectionRefusedError, " error.... eeeehhh.. Naze??")
+        print("Shimata, we got : ", err , " error.... eeeehhh.. Naze??")
         print("RabbitMQ is unavailable - retrying in 5 seconds...")
         time.sleep(5)
 
