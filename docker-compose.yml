@@ -2,12 +2,15 @@ services:
   simulation:
     container_name: simulation_agents
     build:
-      context: https://github.com/kaunghtetsan275/hotel_iot_afdd_data_simulation.git
+      context: .
       dockerfile: Dockerfile
     env_file:
       - .env
     environment:
-      - ENVIRONMENT=docker
+      - RABBITMQ_HOST=rabbitmq-afdd
+      - RABBITMQ_PORT=5672
+      - TIMESCALEDB_HOST=timescaledb-afdd
+      - TIMESCALEDB_PORT=5432
       - DEBUG=False
     working_dir: /simulation
     depends_on:
@@ -18,7 +21,6 @@ services:
   rabbitmq-afdd:
     image: rabbitmq:3-management
     container_name: rabbitmq-afdd
-    hostname: rabbitmq-host
     ports:
       - "5672:5672" 
       - "15672:15672"
