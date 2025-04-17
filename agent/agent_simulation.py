@@ -53,8 +53,8 @@ class IAQSensorSimulator:
         Initializes the simulation agent with RabbitMQ and Supabase configurations.
         """
         # RabbitMQ connection parameters
-        self.RABBITMQ_URL = 'amqp://guest:guest@localhost:5672/' if config('ENVIRONMENT', default='local') == 'local' else config('RABBITMQ_URL')
-        self.RABBITMQ_HOST = 'localhost' if config('ENVIRONMENT', default='local') == 'local' else config('RABBITMQ_HOST')
+        self.RABBITMQ_URL = f"amqp://{config('RABBITMQ_USER')}:{config('RABBITMQ_PASSWORD')}@{config('RABBITMQ_HOST')}:{config('RABBITMQ_PORT')}/"
+        self.RABBITMQ_HOST = config('RABBITMQ_HOST')
         self.EXCHANGE_NAME = config('EXCHANGE_NAME', default='hotel_iot')
         self.interval_seconds = 5
         self.interval_total_seconds = self.interval_seconds
@@ -391,7 +391,7 @@ class IAQSensorSimulator:
             - The messages are published with a delivery mode of 2, making them persistent.
             - The method uses asyncio to handle multiple tasks concurrently.
         """
-        connection = await connect_robust(config('RABBITMQ_URL'))
+        connection = await connect_robust(self.RABBITMQ_URL)
         channel = await connection.channel()
         tasks = []
         for msg in json_list:
