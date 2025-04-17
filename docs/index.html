@@ -90,9 +90,21 @@ publishing alerts in real-time, making it suitable for IoT-based fault detection
     def __init__(self):
         # Configure logging
         logging.basicConfig(level=logging.INFO, format=&#39;%(asctime)s - %(levelname)s - %(message)s&#39;)
+        # Silence Supabase Realtime logs
+        logging.getLogger(&#34;pika&#34;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;realtime&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;realtime._async.client&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;realtime._async.channel&#39;).setLevel(logging.WARNING)
+        # Optionally, silence other related loggers
+        logging.getLogger(&#39;httpx&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;asyncio&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;phx_websocket&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;phoenix&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;websockets&#39;).setLevel(logging.WARNING)
 
         # RabbitMQ connection parameters
-        self.RABBITMQ_HOST = &#39;localhost&#39; if config(&#39;ENVIRONMENT&#39;, default=&#39;local&#39;) == &#39;local&#39; else config(&#39;RABBITMQ_HOST&#39;)
+        self.RABBITMQ_URL = f&#34;amqp://{config(&#39;RABBITMQ_USER&#39;)}:{config(&#39;RABBITMQ_PASSWORD&#39;)}@{config(&#39;RABBITMQ_HOST&#39;)}:{config(&#39;RABBITMQ_PORT&#39;)}/&#34;
+        self.RABBITMQ_HOST = config(&#39;RABBITMQ_HOST&#39;)
         self.EXCHANGE_NAME = config(&#39;EXCHANGE_NAME&#39;, default=&#39;hotel_iot&#39;)
         self.ALERT_EXCHANGE_NAME = config(&#39;ALERT_EXCHANGE_NAME&#39;, default=&#39;fault_alerts&#39;)
 
@@ -109,7 +121,7 @@ publishing alerts in real-time, making it suitable for IoT-based fault detection
         self.DB_USER = config(&#39;TIMESCALEDB_USER&#39;)
         self.DB_PASSWORD = config(&#39;TIMESCALEDB_PASSWORD&#39;)
         self.DB_PORT = config(&#39;TIMESCALEDB_PORT&#39;, default=&#39;5432&#39;)
-        self.DB_HOST = config(&#39;TIMESCALEDB_HOST&#39;) if config(&#39;ENVIRONMENT&#39;, default=&#39;local&#39;) == &#39;docker&#39; else &#39;localhost&#39;
+        self.DB_HOST = config(&#39;TIMESCALEDB_HOST&#39;)
 
 
     def init_db_connection(self):
@@ -268,7 +280,7 @@ publishing alerts in real-time, making it suitable for IoT-based fault detection
                 table=&#39;fault_thresholds&#39;,
                 callback=handle_change
             ).subscribe()
-        logging.info(&#34;👾[✓] Realtime subscription active for threshold values.&#34;, async_client.realtime.is_connected)
+        logging.info(f&#34;👾[✓] Realtime subscription active for threshold values. {async_client.realtime.is_connected}&#34;)
         while True:
             await asyncio.sleep(3600)
 
@@ -378,7 +390,6 @@ publishing alerts in real-time, making it suitable for IoT-based fault detection
             if power_meter is not None:
                 # Simple power spike detection (can be enhanced with moving averages etc.)
                 if power_meter &gt; self.fault_thresholds[&#39;power&#39;][&#39;power_spike_threshold&#39;]:
-                    logging.info(f&#34;👾💥 Power spike detected: {power_meter} kW on device {device_id}&#34;)
                     self.publish_alert(queue_name, device_id, did, &#39;power_spike&#39;, f&#39;Power consumption spiked to {power_meter} kW on device {device_id}&#39;, timestamp)
             self.process_and_insert_data(sensor_data)
 
@@ -536,7 +547,6 @@ publishing alerts in real-time, making it suitable for IoT-based fault detection
         if power_meter is not None:
             # Simple power spike detection (can be enhanced with moving averages etc.)
             if power_meter &gt; self.fault_thresholds[&#39;power&#39;][&#39;power_spike_threshold&#39;]:
-                logging.info(f&#34;👾💥 Power spike detected: {power_meter} kW on device {device_id}&#34;)
                 self.publish_alert(queue_name, device_id, did, &#39;power_spike&#39;, f&#39;Power consumption spiked to {power_meter} kW on device {device_id}&#39;, timestamp)
         self.process_and_insert_data(sensor_data)
 
@@ -1024,7 +1034,7 @@ alert exchange using the routing key, and publishes the alert data to the queue.
             table=&#39;fault_thresholds&#39;,
             callback=handle_change
         ).subscribe()
-    logging.info(&#34;👾[✓] Realtime subscription active for threshold values.&#34;, async_client.realtime.is_connected)
+    logging.info(f&#34;👾[✓] Realtime subscription active for threshold values. {async_client.realtime.is_connected}&#34;)
     while True:
         await asyncio.sleep(3600)</code></pre>
 </details>
@@ -1085,11 +1095,12 @@ alert exchange using the routing key, and publishes the alert data to the queue.
         Initializes the simulation agent with RabbitMQ and Supabase configurations.
         &#34;&#34;&#34;
         # RabbitMQ connection parameters
-        self.RABBITMQ_URL = &#39;amqp://guest:guest@localhost:5672/&#39; if config(&#39;ENVIRONMENT&#39;, default=&#39;local&#39;) == &#39;local&#39; else config(&#39;RABBITMQ_URL&#39;)
-        self.RABBITMQ_HOST = &#39;localhost&#39; if config(&#39;ENVIRONMENT&#39;, default=&#39;local&#39;) == &#39;local&#39; else config(&#39;RABBITMQ_HOST&#39;)
+        self.RABBITMQ_URL = f&#34;amqp://{config(&#39;RABBITMQ_USER&#39;)}:{config(&#39;RABBITMQ_PASSWORD&#39;)}@{config(&#39;RABBITMQ_HOST&#39;)}:{config(&#39;RABBITMQ_PORT&#39;)}/&#34;
+        self.RABBITMQ_HOST = config(&#39;RABBITMQ_HOST&#39;)
         self.EXCHANGE_NAME = config(&#39;EXCHANGE_NAME&#39;, default=&#39;hotel_iot&#39;)
         self.interval_seconds = 5
         self.interval_total_seconds = self.interval_seconds
+        self.current_time = datetime.now()
 
         # RabbitMQ setup
         self.connection = None
@@ -1154,8 +1165,7 @@ alert exchange using the routing key, and publishes the alert data to the queue.
             logging.info(&#34;No devices found in Supabase.&#34;)
             return []
 
-    def generate_iaq_data_advanced(self, device_id, did, sensor_type,
-                                   start_time_str=&#34;2024-12-27 00:00:00&#34;,
+    def generate_iaq_data_advanced(self,
                                    temperature_base=27,
                                    temperature_amplitude=0.5,
                                    humidity_base=50,
@@ -1192,8 +1202,7 @@ alert exchange using the routing key, and publishes the alert data to the queue.
                 - humidity (float): The simulated humidity value in percentage.
                 - co2 (float): The simulated CO2 level in ppm.
         &#34;&#34;&#34;
-        start_time = datetime.strptime(start_time_str, &#34;%Y-%m-%d %H:%M:%S&#34;)
-        current_time = start_time + self.interval_total_seconds * timedelta(seconds=1)
+        current_time = self.current_time + self.interval_total_seconds * timedelta(seconds=1)
         t_sec = current_time.second
         co2_spike_value = 0
         co2_spike_decay = 0
@@ -1221,7 +1230,7 @@ alert exchange using the routing key, and publishes the alert data to the queue.
 
         return temperature, humidity, co2
 
-    def generate_occupancy_data_advanced(self, device_id, did, sensor_type) -&gt; tuple:
+    def generate_occupancy_data_advanced(self) -&gt; tuple:
         &#34;&#34;&#34;
         Generates advanced occupancy data for a given device.
         This method simulates the occupancy status, online status, and sensitivity 
@@ -1238,8 +1247,7 @@ alert exchange using the routing key, and publishes the alert data to the queue.
                     (&#39;0%&#39;, &#39;25%&#39;, &#39;50%&#39;, &#39;75%&#39;, or &#39;100%&#39;).
                 - occupancy_status (str): The occupancy status of the device, either &#39;occupied&#39; or &#39;unoccupied&#39;.
         &#34;&#34;&#34;
-        current_time = datetime.strptime(&#34;2024-12-27 00:00:00&#34;, &#34;%Y-%m-%d %H:%M:%S&#34;)
-        current_time = current_time + self.interval_total_seconds * timedelta(seconds=1)
+        current_time = self.current_time + self.interval_total_seconds * timedelta(seconds=1)
         if 0 &lt;= current_time.hour &lt; 6 or 12 &lt;= current_time.hour &lt; 18:
             occupancy_status = &#39;unoccupied&#39;
             occupancy_chance = random.random()
@@ -1263,7 +1271,7 @@ alert exchange using the routing key, and publishes the alert data to the queue.
         
         return online_status, sensitivity, occupancy_status
 
-    def generate_power_data_advanced(self, device_id, did, sensor_type) -&gt; float:
+    def generate_power_data_advanced(self) -&gt; float:
         &#34;&#34;&#34;
         Generates simulated power consumption data for a device with advanced features 
         such as random noise, base power, and occasional power spikes.
@@ -1324,16 +1332,13 @@ alert exchange using the routing key, and publishes the alert data to the queue.
             - The `locals()` function is used to dynamically access the generated 
               sensor data based on the `sensor_type`.
         &#34;&#34;&#34;
-        current_time = datetime.strptime(&#34;2024-12-27 00:00:00&#34;, &#34;%Y-%m-%d %H:%M:%S&#34;)
-        current_time = current_time + self.interval_total_seconds * timedelta(seconds=1)
-
         # NOTE: These variables are used in locals() to access the generated data
-        temperature, humidity, co2 = self.generate_iaq_data_advanced(device_id, did, sensor_type)
-        online_status, sensitivity, occupancy_status = self.generate_occupancy_data_advanced(device_id, did, sensor_type)
-        power_meter = self.generate_power_data_advanced(device_id, did, sensor_type)
+        temperature, humidity, co2 = self.generate_iaq_data_advanced()
+        online_status, sensitivity, occupancy_status = self.generate_occupancy_data_advanced()
+        power_meter = self.generate_power_data_advanced()
         if sensor_type == &#39;power_meter&#39;:
             return {
-                &#34;datetime&#34;: current_time.isoformat(),
+                &#34;datetime&#34;: self.current_time.isoformat(),
                 &#39;id&#39;: did,
                 &#34;device_id&#34;: device_id,
                 &#34;power_meter&#34;: round(power_meter, 2),
@@ -1341,7 +1346,7 @@ alert exchange using the routing key, and publishes the alert data to the queue.
             }
         elif sensor_type in [&#39;temperature&#39;, &#39;humidity&#39;, &#39;co2&#39;]:
             return {
-                &#34;datetime&#34;: current_time.isoformat(),
+                &#34;datetime&#34;: self.current_time.isoformat(),
                 &#34;id&#34;: did,
                 &#34;device_id&#34;: device_id,
                 sensor_type: round(locals()[sensor_type], 2),
@@ -1349,7 +1354,7 @@ alert exchange using the routing key, and publishes the alert data to the queue.
             }
         elif sensor_type in [&#39;online_status&#39;, &#39;occupancy_status&#39;, &#39;sensitivity&#39;]:
             return {
-                &#34;datetime&#34;: current_time.isoformat(),
+                &#34;datetime&#34;: self.current_time.isoformat(),
                 &#34;id&#34;: did,
                 &#34;device_id&#34;: device_id,
                 sensor_type: locals()[sensor_type],
@@ -1428,7 +1433,7 @@ alert exchange using the routing key, and publishes the alert data to the queue.
             - The messages are published with a delivery mode of 2, making them persistent.
             - The method uses asyncio to handle multiple tasks concurrently.
         &#34;&#34;&#34;
-        connection = await connect_robust(config(&#39;RABBITMQ_URL&#39;))
+        connection = await connect_robust(self.RABBITMQ_URL)
         channel = await connection.channel()
         tasks = []
         for msg in json_list:
@@ -1496,6 +1501,18 @@ alert exchange using the routing key, and publishes the alert data to the queue.
         or until interrupted.
         &#34;&#34;&#34;
         logging.basicConfig(level=logging.INFO, format=&#39;%(asctime)s - %(levelname)s - %(message)s&#39;)
+        # Silence Supabase Realtime logs
+        logging.getLogger(&#34;pika&#34;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;realtime&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;realtime._async.client&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;realtime._async.channel&#39;).setLevel(logging.WARNING)
+        # Optionally, silence other related loggers
+        logging.getLogger(&#39;httpx&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;asyncio&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;phx_websocket&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;phoenix&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;websockets&#39;).setLevel(logging.WARNING)
+
         logging.info(&#34;🤖 IAQ Sensor Simulator started.&#34;)
         logging.info(&#34;🤖 RabbitMQ dashboard available at: http://localhost:15672&#34;)
         get_devices = self.get_devices_from_supabase()
@@ -1511,8 +1528,7 @@ alert exchange using the routing key, and publishes the alert data to the queue.
                 iaq_data_list = list(filter(None, iaq_data_list))
                 self.publish_to_supabase(iaq_data_list)
                 await self.publish_batch(iaq_data_list)
-
-                self.interval_total_seconds += self.interval_seconds
+                self.current_time = datetime.now()
                 await asyncio.sleep(self.interval_seconds)
 
         except KeyboardInterrupt:
@@ -1606,15 +1622,14 @@ by the connection, to release resources and clean up.</p>
 <p>Any exceptions raised during the closing of the channel or connection.</p></div>
 </dd>
 <dt id="agent.IAQSensorSimulator.generate_iaq_data_advanced"><code class="name flex">
-<span>def <span class="ident">generate_iaq_data_advanced</span></span>(<span>self,<br>device_id,<br>did,<br>sensor_type,<br>start_time_str='2024-12-27 00:00:00',<br>temperature_base=27,<br>temperature_amplitude=0.5,<br>humidity_base=50,<br>humidity_amplitude=0.5,<br>co2_base=500,<br>co2_spike_chance=0.01,<br>co2_spike_magnitude_range=(300, 800),<br>temperature_noise_std=0.05,<br>humidity_noise_std=1.5,<br>co2_noise_std=20) ‑> tuple</span>
+<span>def <span class="ident">generate_iaq_data_advanced</span></span>(<span>self,<br>temperature_base=27,<br>temperature_amplitude=0.5,<br>humidity_base=50,<br>humidity_amplitude=0.5,<br>co2_base=500,<br>co2_spike_chance=0.01,<br>co2_spike_magnitude_range=(300, 800),<br>temperature_noise_std=0.05,<br>humidity_noise_std=1.5,<br>co2_noise_std=20) ‑> tuple</span>
 </code></dt>
 <dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def generate_iaq_data_advanced(self, device_id, did, sensor_type,
-                               start_time_str=&#34;2024-12-27 00:00:00&#34;,
+<pre><code class="python">def generate_iaq_data_advanced(self,
                                temperature_base=27,
                                temperature_amplitude=0.5,
                                humidity_base=50,
@@ -1651,8 +1666,7 @@ by the connection, to release resources and clean up.</p>
             - humidity (float): The simulated humidity value in percentage.
             - co2 (float): The simulated CO2 level in ppm.
     &#34;&#34;&#34;
-    start_time = datetime.strptime(start_time_str, &#34;%Y-%m-%d %H:%M:%S&#34;)
-    current_time = start_time + self.interval_total_seconds * timedelta(seconds=1)
+    current_time = self.current_time + self.interval_total_seconds * timedelta(seconds=1)
     t_sec = current_time.second
     co2_spike_value = 0
     co2_spike_decay = 0
@@ -1761,16 +1775,13 @@ and occasional CO2 spikes to mimic real-world environmental variations.</p>
         - The `locals()` function is used to dynamically access the generated 
           sensor data based on the `sensor_type`.
     &#34;&#34;&#34;
-    current_time = datetime.strptime(&#34;2024-12-27 00:00:00&#34;, &#34;%Y-%m-%d %H:%M:%S&#34;)
-    current_time = current_time + self.interval_total_seconds * timedelta(seconds=1)
-
     # NOTE: These variables are used in locals() to access the generated data
-    temperature, humidity, co2 = self.generate_iaq_data_advanced(device_id, did, sensor_type)
-    online_status, sensitivity, occupancy_status = self.generate_occupancy_data_advanced(device_id, did, sensor_type)
-    power_meter = self.generate_power_data_advanced(device_id, did, sensor_type)
+    temperature, humidity, co2 = self.generate_iaq_data_advanced()
+    online_status, sensitivity, occupancy_status = self.generate_occupancy_data_advanced()
+    power_meter = self.generate_power_data_advanced()
     if sensor_type == &#39;power_meter&#39;:
         return {
-            &#34;datetime&#34;: current_time.isoformat(),
+            &#34;datetime&#34;: self.current_time.isoformat(),
             &#39;id&#39;: did,
             &#34;device_id&#34;: device_id,
             &#34;power_meter&#34;: round(power_meter, 2),
@@ -1778,7 +1789,7 @@ and occasional CO2 spikes to mimic real-world environmental variations.</p>
         }
     elif sensor_type in [&#39;temperature&#39;, &#39;humidity&#39;, &#39;co2&#39;]:
         return {
-            &#34;datetime&#34;: current_time.isoformat(),
+            &#34;datetime&#34;: self.current_time.isoformat(),
             &#34;id&#34;: did,
             &#34;device_id&#34;: device_id,
             sensor_type: round(locals()[sensor_type], 2),
@@ -1786,7 +1797,7 @@ and occasional CO2 spikes to mimic real-world environmental variations.</p>
         }
     elif sensor_type in [&#39;online_status&#39;, &#39;occupancy_status&#39;, &#39;sensitivity&#39;]:
         return {
-            &#34;datetime&#34;: current_time.isoformat(),
+            &#34;datetime&#34;: self.current_time.isoformat(),
             &#34;id&#34;: did,
             &#34;device_id&#34;: device_id,
             sensor_type: locals()[sensor_type],
@@ -1831,14 +1842,14 @@ sensor data based on the <code>sensor_type</code>.</li>
 </ul></div>
 </dd>
 <dt id="agent.IAQSensorSimulator.generate_occupancy_data_advanced"><code class="name flex">
-<span>def <span class="ident">generate_occupancy_data_advanced</span></span>(<span>self, device_id, did, sensor_type) ‑> tuple</span>
+<span>def <span class="ident">generate_occupancy_data_advanced</span></span>(<span>self) ‑> tuple</span>
 </code></dt>
 <dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def generate_occupancy_data_advanced(self, device_id, did, sensor_type) -&gt; tuple:
+<pre><code class="python">def generate_occupancy_data_advanced(self) -&gt; tuple:
     &#34;&#34;&#34;
     Generates advanced occupancy data for a given device.
     This method simulates the occupancy status, online status, and sensitivity 
@@ -1855,8 +1866,7 @@ sensor data based on the <code>sensor_type</code>.</li>
                 (&#39;0%&#39;, &#39;25%&#39;, &#39;50%&#39;, &#39;75%&#39;, or &#39;100%&#39;).
             - occupancy_status (str): The occupancy status of the device, either &#39;occupied&#39; or &#39;unoccupied&#39;.
     &#34;&#34;&#34;
-    current_time = datetime.strptime(&#34;2024-12-27 00:00:00&#34;, &#34;%Y-%m-%d %H:%M:%S&#34;)
-    current_time = current_time + self.interval_total_seconds * timedelta(seconds=1)
+    current_time = self.current_time + self.interval_total_seconds * timedelta(seconds=1)
     if 0 &lt;= current_time.hour &lt; 6 or 12 &lt;= current_time.hour &lt; 18:
         occupancy_status = &#39;unoccupied&#39;
         occupancy_chance = random.random()
@@ -1904,14 +1914,14 @@ a small probability of anomalies in the generated data.</p>
 </dl></div>
 </dd>
 <dt id="agent.IAQSensorSimulator.generate_power_data_advanced"><code class="name flex">
-<span>def <span class="ident">generate_power_data_advanced</span></span>(<span>self, device_id, did, sensor_type) ‑> float</span>
+<span>def <span class="ident">generate_power_data_advanced</span></span>(<span>self) ‑> float</span>
 </code></dt>
 <dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def generate_power_data_advanced(self, device_id, did, sensor_type) -&gt; float:
+<pre><code class="python">def generate_power_data_advanced(self) -&gt; float:
     &#34;&#34;&#34;
     Generates simulated power consumption data for a device with advanced features 
     such as random noise, base power, and occasional power spikes.
@@ -2061,7 +2071,7 @@ a durable topic exchange with the specified exchange name.</p></div>
         - The messages are published with a delivery mode of 2, making them persistent.
         - The method uses asyncio to handle multiple tasks concurrently.
     &#34;&#34;&#34;
-    connection = await connect_robust(config(&#39;RABBITMQ_URL&#39;))
+    connection = await connect_robust(self.RABBITMQ_URL)
     channel = await connection.channel()
     tasks = []
     for msg in json_list:
@@ -2301,6 +2311,18 @@ as a Unix timestamp.</li>
     or until interrupted.
     &#34;&#34;&#34;
     logging.basicConfig(level=logging.INFO, format=&#39;%(asctime)s - %(levelname)s - %(message)s&#39;)
+    # Silence Supabase Realtime logs
+    logging.getLogger(&#34;pika&#34;).setLevel(logging.WARNING)
+    logging.getLogger(&#39;realtime&#39;).setLevel(logging.WARNING)
+    logging.getLogger(&#39;realtime._async.client&#39;).setLevel(logging.WARNING)
+    logging.getLogger(&#39;realtime._async.channel&#39;).setLevel(logging.WARNING)
+    # Optionally, silence other related loggers
+    logging.getLogger(&#39;httpx&#39;).setLevel(logging.WARNING)
+    logging.getLogger(&#39;asyncio&#39;).setLevel(logging.WARNING)
+    logging.getLogger(&#39;phx_websocket&#39;).setLevel(logging.WARNING)
+    logging.getLogger(&#39;phoenix&#39;).setLevel(logging.WARNING)
+    logging.getLogger(&#39;websockets&#39;).setLevel(logging.WARNING)
+
     logging.info(&#34;🤖 IAQ Sensor Simulator started.&#34;)
     logging.info(&#34;🤖 RabbitMQ dashboard available at: http://localhost:15672&#34;)
     get_devices = self.get_devices_from_supabase()
@@ -2316,8 +2338,7 @@ as a Unix timestamp.</li>
             iaq_data_list = list(filter(None, iaq_data_list))
             self.publish_to_supabase(iaq_data_list)
             await self.publish_batch(iaq_data_list)
-
-            self.interval_total_seconds += self.interval_seconds
+            self.current_time = datetime.now()
             await asyncio.sleep(self.interval_seconds)
 
     except KeyboardInterrupt:

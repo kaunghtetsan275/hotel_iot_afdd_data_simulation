@@ -45,16 +45,16 @@ el.replaceWith(d);
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="agent.agent_fault_detection.main"><code class="name flex">
-<span>def <span class="ident">main</span></span>(<span>)</span>
+<span>async def <span class="ident">main</span></span>(<span>)</span>
 </code></dt>
 <dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def main():
+<pre><code class="python">async def main():
     try:
-        logging.info()
+        logging.info(&#34;=========================================&#34;)
         logging.info(&#34;👾 Initializing Fault Detection Agent...&#34;)
         agent = FaultDetectionAgent()
         agent.init_db_connection()
@@ -65,7 +65,7 @@ el.replaceWith(d);
         thread = Thread(target=agent.run_fault_detection, daemon=True)
         thread.start()
 
-        asyncio.run(agent.setup_realtime_subscription())
+        await agent.setup_realtime_subscription()
     except KeyboardInterrupt:
         logging.info(&#34; [!] Exiting...&#34;)
     except Exception as e:
@@ -92,9 +92,21 @@ el.replaceWith(d);
     def __init__(self):
         # Configure logging
         logging.basicConfig(level=logging.INFO, format=&#39;%(asctime)s - %(levelname)s - %(message)s&#39;)
+        # Silence Supabase Realtime logs
+        logging.getLogger(&#34;pika&#34;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;realtime&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;realtime._async.client&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;realtime._async.channel&#39;).setLevel(logging.WARNING)
+        # Optionally, silence other related loggers
+        logging.getLogger(&#39;httpx&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;asyncio&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;phx_websocket&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;phoenix&#39;).setLevel(logging.WARNING)
+        logging.getLogger(&#39;websockets&#39;).setLevel(logging.WARNING)
 
         # RabbitMQ connection parameters
-        self.RABBITMQ_HOST = &#39;localhost&#39; if config(&#39;ENVIRONMENT&#39;, default=&#39;local&#39;) == &#39;local&#39; else config(&#39;RABBITMQ_HOST&#39;)
+        self.RABBITMQ_URL = f&#34;amqp://{config(&#39;RABBITMQ_USER&#39;)}:{config(&#39;RABBITMQ_PASSWORD&#39;)}@{config(&#39;RABBITMQ_HOST&#39;)}:{config(&#39;RABBITMQ_PORT&#39;)}/&#34;
+        self.RABBITMQ_HOST = config(&#39;RABBITMQ_HOST&#39;)
         self.EXCHANGE_NAME = config(&#39;EXCHANGE_NAME&#39;, default=&#39;hotel_iot&#39;)
         self.ALERT_EXCHANGE_NAME = config(&#39;ALERT_EXCHANGE_NAME&#39;, default=&#39;fault_alerts&#39;)
 
@@ -111,7 +123,7 @@ el.replaceWith(d);
         self.DB_USER = config(&#39;TIMESCALEDB_USER&#39;)
         self.DB_PASSWORD = config(&#39;TIMESCALEDB_PASSWORD&#39;)
         self.DB_PORT = config(&#39;TIMESCALEDB_PORT&#39;, default=&#39;5432&#39;)
-        self.DB_HOST = config(&#39;TIMESCALEDB_HOST&#39;) if config(&#39;ENVIRONMENT&#39;, default=&#39;local&#39;) == &#39;docker&#39; else &#39;localhost&#39;
+        self.DB_HOST = config(&#39;TIMESCALEDB_HOST&#39;)
 
 
     def init_db_connection(self):
@@ -270,7 +282,7 @@ el.replaceWith(d);
                 table=&#39;fault_thresholds&#39;,
                 callback=handle_change
             ).subscribe()
-        logging.info(&#34;👾[✓] Realtime subscription active for threshold values.&#34;, async_client.realtime.is_connected)
+        logging.info(f&#34;👾[✓] Realtime subscription active for threshold values. {async_client.realtime.is_connected}&#34;)
         while True:
             await asyncio.sleep(3600)
 
@@ -380,7 +392,6 @@ el.replaceWith(d);
             if power_meter is not None:
                 # Simple power spike detection (can be enhanced with moving averages etc.)
                 if power_meter &gt; self.fault_thresholds[&#39;power&#39;][&#39;power_spike_threshold&#39;]:
-                    logging.info(f&#34;👾💥 Power spike detected: {power_meter} kW on device {device_id}&#34;)
                     self.publish_alert(queue_name, device_id, did, &#39;power_spike&#39;, f&#39;Power consumption spiked to {power_meter} kW on device {device_id}&#39;, timestamp)
             self.process_and_insert_data(sensor_data)
 
@@ -538,7 +549,6 @@ el.replaceWith(d);
         if power_meter is not None:
             # Simple power spike detection (can be enhanced with moving averages etc.)
             if power_meter &gt; self.fault_thresholds[&#39;power&#39;][&#39;power_spike_threshold&#39;]:
-                logging.info(f&#34;👾💥 Power spike detected: {power_meter} kW on device {device_id}&#34;)
                 self.publish_alert(queue_name, device_id, did, &#39;power_spike&#39;, f&#39;Power consumption spiked to {power_meter} kW on device {device_id}&#39;, timestamp)
         self.process_and_insert_data(sensor_data)
 
@@ -1026,7 +1036,7 @@ alert exchange using the routing key, and publishes the alert data to the queue.
             table=&#39;fault_thresholds&#39;,
             callback=handle_change
         ).subscribe()
-    logging.info(&#34;👾[✓] Realtime subscription active for threshold values.&#34;, async_client.realtime.is_connected)
+    logging.info(f&#34;👾[✓] Realtime subscription active for threshold values. {async_client.realtime.is_connected}&#34;)
     while True:
         await asyncio.sleep(3600)</code></pre>
 </details>
